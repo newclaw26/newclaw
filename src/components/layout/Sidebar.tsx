@@ -30,7 +30,6 @@ import { useAgentsStore } from '@/stores/agents';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ConfirmDialog } from '@/components/ui/confirm-dialog';
-import { hostApiFetch } from '@/lib/host-api';
 import { useTranslation } from 'react-i18next';
 import logoSvg from '@/assets/logo.png';
 
@@ -153,23 +152,6 @@ export function Sidebar() {
 
   const getSessionLabel = (key: string, displayName?: string, label?: string) =>
     sessionLabels[key] ?? label ?? displayName ?? key;
-
-  const openDevConsole = async () => {
-    try {
-      const result = await hostApiFetch<{
-        success: boolean;
-        url?: string;
-        error?: string;
-      }>('/api/gateway/control-ui');
-      if (result.success && result.url) {
-        window.electron.openExternal(result.url);
-      } else {
-        console.error('Failed to get Dev Console URL:', result.error);
-      }
-    } catch (err) {
-      console.error('Error opening Dev Console:', err);
-    }
-  };
 
   const { t } = useTranslation(['common', 'chat']);
   const [sessionToDelete, setSessionToDelete] = useState<{ key: string; label: string } | null>(null);

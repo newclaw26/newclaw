@@ -5,11 +5,8 @@
 import { useEffect, useState, useCallback } from 'react';
 import {
   Activity,
-  Cpu,
   MessageSquare,
   Network,
-  Zap,
-  Clock,
   Bot,
   RefreshCw,
   CheckCircle2,
@@ -101,14 +98,7 @@ export function Overview() {
   const totalChannels = snapshot.channels?.length ?? 0;
   const runningAgents = agents?.filter((a: any) => a.running !== false).length ?? agents?.length ?? 0;
 
-  const formatUptime = (ms?: number) => {
-    if (!ms) return '刚启动';
-    const hours = Math.floor(ms / 3600000);
-    const mins = Math.floor((ms % 3600000) / 60000);
-    if (hours > 24) return `${Math.floor(hours / 24)} 天 ${hours % 24} 小时`;
-    if (hours > 0) return `${hours} 小时 ${mins} 分钟`;
-    return `${mins} 分钟`;
-  };
+
 
   return (
     <div className="space-y-8">

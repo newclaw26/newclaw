@@ -63,10 +63,10 @@ describe('getOpenClawCliCommand (Windows packaged)', () => {
   });
 
   it('prefers bundled node.exe when present', async () => {
-    mockExistsSync.mockImplementation((p: string) => /[\\/]cli[\\/]openclaw\.cmd$/i.test(p) || /[\\/]bin[\\/]node\.exe$/i.test(p));
+    mockExistsSync.mockImplementation((p: string) => /[\\/]cli[\\/]newclaw\.cmd$/i.test(p) || /[\\/]bin[\\/]node\.exe$/i.test(p));
     const { getOpenClawCliCommand } = await import('@electron/utils/openclaw-cli');
     expect(getOpenClawCliCommand()).toBe(
-      "& 'C:\\Program Files\\NewClaw\\resources/cli/openclaw.cmd'",
+      "& 'C:\\Program Files\\NewClaw\\resources/cli/newclaw.cmd'",
     );
   });
 

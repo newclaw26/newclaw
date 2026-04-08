@@ -8,13 +8,13 @@ describe('resolveSupportedLanguage', () => {
     expect(resolveSupportedLanguage('en-US')).toBe('en');
   });
 
-  it('falls back to English for unsupported locales', () => {
-    expect(resolveSupportedLanguage('fr-FR')).toBe('en');
-    expect(resolveSupportedLanguage('ko')).toBe('en');
+  it('falls back to Chinese for unsupported locales', () => {
+    expect(resolveSupportedLanguage('fr-FR')).toBe('zh');
+    expect(resolveSupportedLanguage('ko')).toBe('zh');
   });
 
-  it('falls back to English when locale is missing', () => {
-    expect(resolveSupportedLanguage('')).toBe('en');
-    expect(resolveSupportedLanguage(undefined)).toBe('en');
+  it('falls back to Chinese when locale is missing', () => {
+    expect(resolveSupportedLanguage('')).toBe('zh');
+    expect(resolveSupportedLanguage(undefined)).toBe('zh');
   });
 });

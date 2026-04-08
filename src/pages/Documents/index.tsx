@@ -6,13 +6,11 @@ import { useEffect, useState, useCallback } from 'react';
 import {
   FileText,
   RefreshCw,
-  FolderOpen,
   Search,
   File,
   Code,
   BookOpen,
   AlertTriangle,
-  ExternalLink,
   Clock,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';

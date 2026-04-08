@@ -206,7 +206,7 @@ export function OpenClawEmbed({ path, title }: OpenClawEmbedProps) {
   };
 
   // 网关未连接
-  if (gatewayStatus !== 'connected' && !url) {
+  if (gatewayStatus.state !== 'running' && !url) {
     return (
       <div className="flex flex-col items-center justify-center h-full gap-4">
         <div className="w-16 h-16 rounded-2xl glass-card-purple flex items-center justify-center">
@@ -268,6 +268,7 @@ export function OpenClawEmbed({ path, title }: OpenClawEmbedProps) {
             style={{ background: 'transparent' }}
             // @ts-ignore - Electron webview attributes
             allowpopups="true"
+            // @ts-ignore - Electron webview attributes
             nodeintegration="false"
           />
         )}

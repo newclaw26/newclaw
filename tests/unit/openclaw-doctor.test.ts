@@ -129,7 +129,7 @@ describe('openclaw doctor output handling', () => {
 
     await resultPromise;
     expect(mockLoggerWarn).toHaveBeenCalledWith(
-      `OpenClaw doctor stdout exceeded ${MAX_DOCTOR_OUTPUT_BYTES} bytes; truncating additional output`,
+      `NewClaw doctor stdout exceeded ${MAX_DOCTOR_OUTPUT_BYTES} bytes; truncating additional output`,
     );
   });
 
@@ -171,7 +171,7 @@ describe('openclaw doctor output handling', () => {
 
     const result = await resultPromise;
     expect(result.success).toBe(true);
-    expect(result.command).toBe('openclaw doctor');
+    expect(result.command).toBe('newclaw doctor');
     expect(mockFork.mock.calls[0][1]).toEqual(['doctor']);
   });
 });
