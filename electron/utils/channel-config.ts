@@ -344,8 +344,8 @@ export async function readOpenClawConfig(): Promise<OpenClawConfig> {
         const content = await readFile(CONFIG_FILE, 'utf-8');
         return JSON.parse(content) as OpenClawConfig;
     } catch (error) {
-        logger.error('Failed to read OpenClaw config', error);
-        console.error('Failed to read OpenClaw config:', error);
+        logger.error('Failed to read NewClaw config', error);
+        console.error('Failed to read NewClaw config:', error);
         return {};
     }
 }
@@ -364,8 +364,8 @@ export async function writeOpenClawConfig(config: OpenClawConfig): Promise<void>
 
         await writeFile(CONFIG_FILE, JSON.stringify(config, null, 2), 'utf-8');
     } catch (error) {
-        logger.error('Failed to write OpenClaw config', error);
-        console.error('Failed to write OpenClaw config:', error);
+        logger.error('Failed to write NewClaw config', error);
+        console.error('Failed to write NewClaw config:', error);
         throw error;
     }
 }

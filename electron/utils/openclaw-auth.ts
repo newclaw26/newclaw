@@ -230,7 +230,7 @@ const AUTH_PROFILE_PROVIDER_KEY_MAP: Record<string, string> = {
 };
 
 /**
- * Scan OpenClaw's bundled extensions directory to find all plugins that have
+ * Scan NewClaw's bundled extensions directory to find all plugins that have
  * `enabledByDefault: true` in their `openclaw.plugin.json` manifest.
  *
  * When `plugins.allow` is explicitly set (e.g. for third-party channel
@@ -365,7 +365,7 @@ async function writeOpenClawJson(config: Record<string, unknown>): Promise<void>
 // ── Exported Functions (all async) ───────────────────────────────
 
 /**
- * Save an OAuth token to OpenClaw's auth-profiles.json.
+ * Save an OAuth token to NewClaw's auth-profiles.json.
  */
 export async function saveOAuthTokenToOpenClaw(
   provider: string,
@@ -400,11 +400,11 @@ export async function saveOAuthTokenToOpenClaw(
 
     await writeAuthProfiles(store, id);
   }
-  console.log(`Saved OAuth token for provider "${provider}" to OpenClaw auth-profiles (agents: ${agentIds.join(', ')})`);
+  console.log(`Saved OAuth token for provider "${provider}" to NewClaw auth-profiles (agents: ${agentIds.join(', ')})`);
 }
 
 /**
- * Retrieve an OAuth token from OpenClaw's auth-profiles.json.
+ * Retrieve an OAuth token from NewClaw's auth-profiles.json.
  * Useful when the Gateway does not natively inject the Authorization header.
  * 
  * @param provider - Provider type (e.g., 'minimax-portal')
@@ -430,7 +430,7 @@ export async function getOAuthTokenFromOpenClaw(
 }
 
 /**
- * Save a provider API key to OpenClaw's auth-profiles.json
+ * Save a provider API key to NewClaw's auth-profiles.json
  */
 export async function saveProviderKeyToOpenClaw(
   provider: string,
@@ -461,11 +461,11 @@ export async function saveProviderKeyToOpenClaw(
 
     await writeAuthProfiles(store, id);
   }
-  console.log(`Saved API key for provider "${provider}" to OpenClaw auth-profiles (agents: ${agentIds.join(', ')})`);
+  console.log(`Saved API key for provider "${provider}" to NewClaw auth-profiles (agents: ${agentIds.join(', ')})`);
 }
 
 /**
- * Remove a provider API key from OpenClaw auth-profiles.json
+ * Remove a provider API key from NewClaw auth-profiles.json
  */
 export async function removeProviderKeyFromOpenClaw(
   provider: string,
@@ -480,7 +480,7 @@ export async function removeProviderKeyFromOpenClaw(
       await writeAuthProfiles(store, id);
     }
   }
-  console.log(`Removed API key for provider "${provider}" from OpenClaw auth-profiles (agents: ${agentIds.join(', ')})`);
+  console.log(`Removed API key for provider "${provider}" from NewClaw auth-profiles (agents: ${agentIds.join(', ')})`);
 }
 
 /**
@@ -529,7 +529,7 @@ export async function removeProviderFromOpenClaw(provider: string): Promise<void
       if (entries[pluginName]) {
         entries[pluginName].enabled = false;
         modified = true;
-        console.log(`Disabled OpenClaw plugin: ${pluginName}`);
+        console.log(`Disabled NewClaw plugin: ${pluginName}`);
       }
 
       // Remove from models.providers
@@ -538,7 +538,7 @@ export async function removeProviderFromOpenClaw(provider: string): Promise<void
       if (providers[provider]) {
         delete providers[provider];
         modified = true;
-        console.log(`Removed OpenClaw provider config: ${provider}`);
+        console.log(`Removed NewClaw provider config: ${provider}`);
       }
 
       const auth = (config.auth && typeof config.auth === 'object'
@@ -556,7 +556,7 @@ export async function removeProviderFromOpenClaw(provider: string): Promise<void
           }
           delete authProfiles[profileId];
           modified = true;
-          console.log(`Removed OpenClaw auth profile: ${profileId}`);
+          console.log(`Removed NewClaw auth profile: ${profileId}`);
         }
       }
 
@@ -674,7 +674,7 @@ export async function setOpenClawDefaultModel(
     config.gateway = gateway;
 
     await writeOpenClawJson(config);
-    console.log(`Set OpenClaw default model to "${model}" for provider "${provider}"`);
+    console.log(`Set NewClaw default model to "${model}" for provider "${provider}"`);
   });
 }
 
@@ -955,7 +955,7 @@ export async function setOpenClawDefaultModelWithOverride(
 
     await writeOpenClawJson(config);
     console.log(
-      `Set OpenClaw default model to "${model}" for provider "${provider}" (runtime override)`
+      `Set NewClaw default model to "${model}" for provider "${provider}" (runtime override)`
     );
   });
 }
@@ -1279,7 +1279,7 @@ export async function updateSingleAgentModelProvider(
 /**
  * Sanitize ~/.openclaw/openclaw.json before Gateway start.
  *
- * Removes known-invalid keys that cause OpenClaw's strict Zod validation
+ * Removes known-invalid keys that cause NewClaw's strict Zod validation
  * to reject the entire config on startup.  Uses a conservative **blocklist**
  * approach: only strips keys that are KNOWN to be misplaced by older
  * OpenClaw/NewClaw versions or external tools.
@@ -1317,7 +1317,7 @@ export async function sanitizeOpenClawConfig(): Promise<void> {
     let modified = false;
 
     // ── skills section ──────────────────────────────────────────────
-    // OpenClaw's Zod schema uses .strict() on the skills object, accepting
+    // NewClaw's Zod schema uses .strict() on the skills object, accepting
     // only: allowBundled, load, install, limits, entries.
     // The key "enabled" belongs inside skills.entries[key].enabled, NOT at
     // the skills root level.  Older versions may have placed it there.
@@ -1475,7 +1475,7 @@ export async function sanitizeOpenClawConfig(): Promise<void> {
     // Exec approval prompts add unnecessary friction in this context, so we
     // set security="full" (allow all commands) and ask="off" (never prompt).
     // If a user has manually configured a stricter ~/.openclaw/exec-approvals.json,
-    // OpenClaw's minSecurity/maxAsk merge will still respect their intent.
+    // NewClaw's minSecurity/maxAsk merge will still respect their intent.
     const execConfig = (toolsConfig.exec as Record<string, unknown> | undefined) || {};
     if (execConfig.security !== 'full' || execConfig.ask !== 'off') {
       execConfig.security = 'full';
@@ -1693,7 +1693,7 @@ export async function sanitizeOpenClawConfig(): Promise<void> {
       }
 
       // ── Ensure enabledByDefault built-in plugins survive restrictive allowlists ──
-      // OpenClaw's plugin enable logic checks the allowlist BEFORE enabledByDefault,
+      // NewClaw's plugin enable logic checks the allowlist BEFORE enabledByDefault,
       // so any bundled plugin with enabledByDefault: true (e.g. browser, diffs, etc.)
       // gets blocked when plugins.allow is non-empty.  We add them back here.
       // On upgrade, plugins removed from enabledByDefault are also removed from the

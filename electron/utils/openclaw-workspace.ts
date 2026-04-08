@@ -1,5 +1,5 @@
 /**
- * OpenClaw workspace context utilities.
+ * NewClaw workspace context utilities.
  *
  * All file I/O is async (fs/promises) to avoid blocking the Electron
  * main thread.

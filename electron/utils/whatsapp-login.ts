@@ -8,7 +8,7 @@ import { getOpenClawDir, getOpenClawResolvedDir } from './paths';
 
 const require = createRequire(import.meta.url);
 
-// Resolve dependencies from OpenClaw package context (pnpm-safe)
+// Resolve dependencies from NewClaw package context (pnpm-safe)
 const openclawPath = getOpenClawDir();
 const openclawResolvedPath = getOpenClawResolvedDir();
 // Primary: resolves from openclaw's real (dereferenced) path in pnpm store.
@@ -32,7 +32,7 @@ function resolveOpenClawPackageJson(packageName: string): string {
     } catch (err) {
         const reason = err instanceof Error ? err.message : String(err);
         throw new Error(
-            `Failed to resolve "${packageName}" from OpenClaw context. ` +
+            `Failed to resolve "${packageName}" from NewClaw context. ` +
             `openclawPath=${openclawPath}, resolvedPath=${openclawResolvedPath}. ${reason}`,
             { cause: err }
         );
