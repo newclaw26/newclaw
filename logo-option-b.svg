@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <radialGradient id="bgB" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#180828"/>
+      <stop offset="100%" stop-color="#0a0418"/>
+    </radialGradient>
+    <linearGradient id="bodyB" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ff5050"/>
+      <stop offset="100%" stop-color="#c02040"/>
+    </linearGradient>
+    <radialGradient id="blushB" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff9090"/>
+      <stop offset="100%" stop-color="#ff707000"/>
+    </radialGradient>
+    <filter id="glowB">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="outerGlowB">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="500" height="500" rx="40" fill="url(#bgB)"/>
+
+  <!-- Decorative border -->
+  <rect x="8" y="8" width="484" height="484" rx="35" fill="none" stroke="#8030c0" stroke-width="2" opacity="0.4"/>
+
+  <!-- Ambient glow -->
+  <ellipse cx="250" cy="210" rx="150" ry="130" fill="#8030c0" opacity="0.08" filter="url(#outerGlowB)"/>
+
+  <!-- Background dots/stars -->
+  <circle cx="80" cy="60" r="2" fill="white" opacity="0.5"/>
+  <circle cx="420" cy="90" r="1.5" fill="white" opacity="0.4"/>
+  <circle cx="60" cy="180" r="1" fill="white" opacity="0.6"/>
+  <circle cx="440" cy="200" r="2" fill="white" opacity="0.3"/>
+  <circle cx="100" cy="350" r="1.5" fill="white" opacity="0.4"/>
+  <circle cx="400" cy="370" r="1" fill="white" opacity="0.5"/>
+  <circle cx="70" cy="280" r="1.5" fill="#c080ff" opacity="0.3"/>
+  <circle cx="430" cy="300" r="2" fill="#c080ff" opacity="0.2"/>
+
+  <!-- Dragon body (egg/oval shape - very round and cute) -->
+  <ellipse cx="250" cy="230" rx="100" ry="110" fill="url(#bodyB)"/>
+
+  <!-- Belly patch -->
+  <ellipse cx="250" cy="255" rx="60" ry="65" fill="#ff7070" opacity="0.4"/>
+  <!-- Belly lines -->
+  <path d="M220 235 Q250 240 280 235" fill="none" stroke="#ff9090" stroke-width="1.5" opacity="0.4"/>
+  <path d="M215 255 Q250 260 285 255" fill="none" stroke="#ff9090" stroke-width="1.5" opacity="0.4"/>
+  <path d="M220 275 Q250 280 280 275" fill="none" stroke="#ff9090" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- Head (overlapping body, bigger for chibi proportions) -->
+  <circle cx="250" cy="160" r="85" fill="url(#bodyB)"/>
+
+  <!-- Dragon whiskers (cute curved lines) -->
+  <path d="M170 175 Q140 165 120 170" fill="none" stroke="#ff8080" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  <path d="M170 185 Q140 185 125 195" fill="none" stroke="#ff8080" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  <path d="M330 175 Q360 165 380 170" fill="none" stroke="#ff8080" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  <path d="M330 185 Q360 185 375 195" fill="none" stroke="#ff8080" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+
+  <!-- Antler-horns (cute small version) -->
+  <!-- Left antler -->
+  <path d="M205 95 Q200 70 190 60" fill="none" stroke="#d04060" stroke-width="5" stroke-linecap="round"/>
+  <path d="M198 75 Q185 68 178 60" fill="none" stroke="#d04060" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="190" cy="58" r="4" fill="#e0a050"/>
+  <circle cx="178" cy="58" r="3" fill="#e0a050"/>
+
+  <!-- Right antler -->
+  <path d="M295 95 Q300 70 310 60" fill="none" stroke="#d04060" stroke-width="5" stroke-linecap="round"/>
+  <path d="M302 75 Q315 68 322 60" fill="none" stroke="#d04060" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="310" cy="58" r="4" fill="#e0a050"/>
+  <circle cx="322" cy="58" r="3" fill="#e0a050"/>
+
+  <!-- Eyes - big sparkly anime style -->
+  <!-- Left eye -->
+  <ellipse cx="218" cy="155" rx="22" ry="26" fill="white"/>
+  <ellipse cx="220" cy="158" rx="15" ry="19" fill="#1a0830"/>
+  <!-- Star highlight in eye -->
+  <path d="M212 148 L214 153 L209 151 L214 151 L212 155Z" fill="white" opacity="0.9"/>
+  <circle cx="225" cy="165" r="4" fill="white" opacity="0.5"/>
+  <!-- Purple iris ring -->
+  <ellipse cx="220" cy="158" rx="15" ry="19" fill="none" stroke="#8040c0" stroke-width="1" opacity="0.5"/>
+
+  <!-- Right eye -->
+  <ellipse cx="282" cy="155" rx="22" ry="26" fill="white"/>
+  <ellipse cx="280" cy="158" rx="15" ry="19" fill="#1a0830"/>
+  <!-- Star highlight in eye -->
+  <path d="M274 148 L276 153 L271 151 L276 151 L274 155Z" fill="white" opacity="0.9"/>
+  <circle cx="285" cy="165" r="4" fill="white" opacity="0.5"/>
+  <!-- Purple iris ring -->
+  <ellipse cx="280" cy="158" rx="15" ry="19" fill="none" stroke="#8040c0" stroke-width="1" opacity="0.5"/>
+
+  <!-- Winking sparkle near right eye -->
+  <path d="M310 140 L312 136 L314 140 L318 142 L314 144 L312 148 L310 144 L306 142Z" fill="#c080ff" opacity="0.6"/>
+
+  <!-- Blush cheeks -->
+  <ellipse cx="185" cy="185" rx="20" ry="13" fill="url(#blushB)"/>
+  <ellipse cx="315" cy="185" rx="20" ry="13" fill="url(#blushB)"/>
+
+  <!-- Cute nose -->
+  <path d="M245 178 Q250 183 255 178" fill="#901030" stroke="none"/>
+  <circle cx="247" cy="177" r="2" fill="#b03050"/>
+  <circle cx="253" cy="177" r="2" fill="#b03050"/>
+
+  <!-- Happy open smile -->
+  <path d="M230 195 Q240 210 250 205 Q260 210 270 195" fill="none" stroke="#901030" stroke-width="3" stroke-linecap="round"/>
+  <!-- Tongue peeking out -->
+  <ellipse cx="250" cy="207" rx="10" ry="7" fill="#ff7090"/>
+
+  <!-- Claw arms (chubby cute pincers) -->
+  <!-- Left claw -->
+  <g transform="translate(130, 230) rotate(-10)">
+    <!-- Arm -->
+    <ellipse cx="0" cy="0" rx="18" ry="30" fill="#c03050"/>
+    <!-- Claw top -->
+    <path d="M-15 -30 Q-25 -50 -10 -45 Q0 -42 -5 -30Z" fill="#c03050"/>
+    <!-- Claw bottom -->
+    <path d="M15 -30 Q25 -50 10 -45 Q0 -42 5 -30Z" fill="#c03050"/>
+    <ellipse cx="0" cy="-32" rx="4" ry="3" fill="#ff8080" opacity="0.5"/>
+  </g>
+
+  <!-- Right claw -->
+  <g transform="translate(370, 230) rotate(10)">
+    <!-- Arm -->
+    <ellipse cx="0" cy="0" rx="18" ry="30" fill="#c03050"/>
+    <!-- Claw top -->
+    <path d="M-15 -30 Q-25 -50 -10 -45 Q0 -42 -5 -30Z" fill="#c03050"/>
+    <!-- Claw bottom -->
+    <path d="M15 -30 Q25 -50 10 -45 Q0 -42 5 -30Z" fill="#c03050"/>
+    <ellipse cx="0" cy="-32" rx="4" ry="3" fill="#ff8080" opacity="0.5"/>
+  </g>
+
+  <!-- Tiny feet -->
+  <ellipse cx="215" cy="335" rx="22" ry="10" fill="#b02040"/>
+  <ellipse cx="285" cy="335" rx="22" ry="10" fill="#b02040"/>
+
+  <!-- Cute curly tail -->
+  <path d="M345 290 Q370 290 380 310 Q390 330 375 340 Q360 345 360 330 Q360 315 370 315" fill="none" stroke="#c03050" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="370" cy="313" r="5" fill="#e0a050"/>
+
+  <!-- Floating hearts -->
+  <g transform="translate(130, 100) scale(0.7)" opacity="0.6">
+    <path d="M0 5 Q0 0 5 0 Q10 0 10 5 Q10 10 5 15 Q0 10 0 5Z" fill="#ff6080"/>
+  </g>
+  <g transform="translate(360, 90) scale(0.5)" opacity="0.5">
+    <path d="M0 5 Q0 0 5 0 Q10 0 10 5 Q10 10 5 15 Q0 10 0 5Z" fill="#ff6080"/>
+  </g>
+  <g transform="translate(105, 150) scale(0.4)" opacity="0.4">
+    <path d="M0 5 Q0 0 5 0 Q10 0 10 5 Q10 10 5 15 Q0 10 0 5Z" fill="#c080ff"/>
+  </g>
+
+  <!-- Purple energy aura (subtle) -->
+  <ellipse cx="250" cy="160" rx="90" ry="90" fill="none" stroke="#9050e0" stroke-width="1" opacity="0.2" stroke-dasharray="5 8"/>
+
+  <!-- Text: 新龙虾 -->
+  <text x="250" y="400" text-anchor="middle" font-family="'Microsoft YaHei','SimHei','Noto Sans SC',sans-serif" font-size="38" font-weight="bold" fill="white" filter="url(#glowB)">新龙虾</text>
+
+  <!-- Text: NewClaw -->
+  <text x="250" y="438" text-anchor="middle" font-family="'Arial Black','Trebuchet MS',Impact,sans-serif" font-size="30" font-weight="bold" fill="#c080ff" letter-spacing="2" filter="url(#glowB)">NewClaw</text>
+
+  <!-- Text: 中文AI助手 -->
+  <text x="250" y="468" text-anchor="middle" font-family="'Microsoft YaHei','SimHei','Noto Sans SC',sans-serif" font-size="16" fill="#9090b0">中文AI助手</text>
+</svg>

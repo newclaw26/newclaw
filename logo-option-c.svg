@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <linearGradient id="bgC" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a0830"/>
+      <stop offset="50%" stop-color="#120620"/>
+      <stop offset="100%" stop-color="#0a0418"/>
+    </linearGradient>
+    <radialGradient id="bodyC" cx="50%" cy="35%" r="55%">
+      <stop offset="0%" stop-color="#ff6060"/>
+      <stop offset="100%" stop-color="#c02040"/>
+    </radialGradient>
+    <radialGradient id="faceC" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#ff5555"/>
+      <stop offset="100%" stop-color="#b82040"/>
+    </radialGradient>
+    <radialGradient id="blushC" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffaaaa"/>
+      <stop offset="100%" stop-color="#ff808000"/>
+    </radialGradient>
+    <filter id="glowC">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="shadowC">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+    <filter id="softC">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+    <!-- Gradient for eye sparkle -->
+    <linearGradient id="eyeGradC" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3020a0"/>
+      <stop offset="100%" stop-color="#1a0840"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background - hexagonal/shield shape -->
+  <path d="M250 10 L460 80 L480 300 L380 460 L120 460 L20 300 L40 80Z" fill="url(#bgC)"/>
+  <path d="M250 10 L460 80 L480 300 L380 460 L120 460 L20 300 L40 80Z" fill="none" stroke="#9050e0" stroke-width="2.5" opacity="0.5"/>
+
+  <!-- Inner border -->
+  <path d="M250 25 L448 90 L466 296 L370 448 L130 448 L34 296 L52 90Z" fill="none" stroke="#9050e0" stroke-width="1" opacity="0.2"/>
+
+  <!-- Ambient glow -->
+  <circle cx="250" cy="200" r="120" fill="#9050e0" opacity="0.06" filter="url(#softC)"/>
+
+  <!-- Small decorative stars -->
+  <g fill="white" opacity="0.4">
+    <circle cx="90" cy="120" r="1.5"/>
+    <circle cx="410" cy="140" r="1"/>
+    <circle cx="70" cy="250" r="1"/>
+    <circle cx="430" cy="230" r="1.5"/>
+    <circle cx="350" cy="100" r="1"/>
+    <circle cx="150" cy="100" r="1.5"/>
+  </g>
+
+  <!-- Dragon - minimalist cute face design -->
+  <!-- Main face circle -->
+  <circle cx="250" cy="190" r="95" fill="url(#faceC)" filter="url(#shadowC)"/>
+
+  <!-- Face highlight -->
+  <ellipse cx="240" cy="160" rx="60" ry="40" fill="white" opacity="0.05"/>
+
+  <!-- Crown/head piece (cute small dragon crest) -->
+  <path d="M220 100 Q225 70 235 80 Q240 60 250 75 Q260 60 265 80 Q275 70 280 100" fill="#d03050"/>
+  <path d="M225 100 Q230 78 240 85 Q245 70 250 82 Q255 70 260 85 Q270 78 275 100" fill="#e04060"/>
+
+  <!-- Cute small antlers -->
+  <path d="M190 130 Q175 100 170 85" fill="none" stroke="#c03050" stroke-width="5" stroke-linecap="round"/>
+  <path d="M175 95 Q162 88 158 80" fill="none" stroke="#c03050" stroke-width="3.5" stroke-linecap="round"/>
+  <circle cx="170" cy="83" r="4" fill="#e8a040"/>
+  <circle cx="158" cy="78" r="3" fill="#e8a040"/>
+
+  <path d="M310 130 Q325 100 330 85" fill="none" stroke="#c03050" stroke-width="5" stroke-linecap="round"/>
+  <path d="M325 95 Q338 88 342 80" fill="none" stroke="#c03050" stroke-width="3.5" stroke-linecap="round"/>
+  <circle cx="330" cy="83" r="4" fill="#e8a040"/>
+  <circle cx="342" cy="78" r="3" fill="#e8a040"/>
+
+  <!-- Eyes - closed happy expression (^_^) -->
+  <!-- Left eye - happy arc -->
+  <path d="M205 180 Q220 160 235 180" fill="none" stroke="#1a0830" stroke-width="4" stroke-linecap="round"/>
+  <!-- Eyelashes -->
+  <line x1="207" y1="178" x2="203" y2="172" stroke="#1a0830" stroke-width="2" stroke-linecap="round"/>
+  <line x1="233" y1="178" x2="237" y2="172" stroke="#1a0830" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Right eye - happy arc -->
+  <path d="M265 180 Q280 160 295 180" fill="none" stroke="#1a0830" stroke-width="4" stroke-linecap="round"/>
+  <!-- Eyelashes -->
+  <line x1="267" y1="178" x2="263" y2="172" stroke="#1a0830" stroke-width="2" stroke-linecap="round"/>
+  <line x1="293" y1="178" x2="297" y2="172" stroke="#1a0830" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Blush cheeks (prominent) -->
+  <ellipse cx="195" cy="200" rx="22" ry="14" fill="url(#blushC)"/>
+  <ellipse cx="305" cy="200" rx="22" ry="14" fill="url(#blushC)"/>
+
+  <!-- Cute triangular nose -->
+  <path d="M246 198 L250 203 L254 198Z" fill="#901030"/>
+
+  <!-- Big happy grin -->
+  <path d="M225 215 Q237 232 250 228 Q263 232 275 215" fill="none" stroke="#901030" stroke-width="3" stroke-linecap="round"/>
+  <!-- Smile fill (open mouth) -->
+  <path d="M228 216 Q237 230 250 226 Q263 230 272 216 Q250 235 228 216Z" fill="#800828"/>
+  <!-- Tiny tongue -->
+  <ellipse cx="250" cy="228" rx="8" ry="5" fill="#ff7090"/>
+
+  <!-- Claw emblem below face (simplified iconic claws) -->
+  <!-- Left claw -->
+  <g transform="translate(190, 290)">
+    <path d="M0 0 Q-20 -10 -25 -30 Q-28 -42 -15 -38 Q-5 -35 0 -20Z" fill="#c03050"/>
+    <path d="M0 0 Q20 -10 25 -30 Q28 -42 15 -38 Q5 -35 0 -20Z" fill="#c03050"/>
+    <ellipse cx="0" cy="-5" rx="12" ry="15" fill="#c03050"/>
+  </g>
+
+  <!-- Right claw -->
+  <g transform="translate(310, 290)">
+    <path d="M0 0 Q-20 -10 -25 -30 Q-28 -42 -15 -38 Q-5 -35 0 -20Z" fill="#c03050"/>
+    <path d="M0 0 Q20 -10 25 -30 Q28 -42 15 -38 Q5 -35 0 -20Z" fill="#c03050"/>
+    <ellipse cx="0" cy="-5" rx="12" ry="15" fill="#c03050"/>
+  </g>
+
+  <!-- Circuit chip icon between claws (tech element) -->
+  <g transform="translate(250, 290)" opacity="0.7">
+    <rect x="-12" y="-12" width="24" height="24" rx="4" fill="none" stroke="#c080ff" stroke-width="1.5"/>
+    <circle cx="0" cy="0" r="4" fill="#c080ff" opacity="0.6"/>
+    <line x1="0" y1="-12" x2="0" y2="-18" stroke="#c080ff" stroke-width="1"/>
+    <line x1="0" y1="12" x2="0" y2="18" stroke="#c080ff" stroke-width="1"/>
+    <line x1="-12" y1="0" x2="-18" y2="0" stroke="#c080ff" stroke-width="1"/>
+    <line x1="12" y1="0" x2="18" y2="0" stroke="#c080ff" stroke-width="1"/>
+    <line x1="-7" y1="-12" x2="-7" y2="-16" stroke="#c080ff" stroke-width="1"/>
+    <line x1="7" y1="-12" x2="7" y2="-16" stroke="#c080ff" stroke-width="1"/>
+    <line x1="-7" y1="12" x2="-7" y2="16" stroke="#c080ff" stroke-width="1"/>
+    <line x1="7" y1="12" x2="7" y2="16" stroke="#c080ff" stroke-width="1"/>
+  </g>
+
+  <!-- Sparkle decorations -->
+  <g filter="url(#glowC)">
+    <path d="M130 160 L132 155 L134 160 L139 162 L134 164 L132 169 L130 164 L125 162Z" fill="#c080ff" opacity="0.5"/>
+    <path d="M370 150 L372 146 L374 150 L378 152 L374 154 L372 158 L370 154 L366 152Z" fill="#c080ff" opacity="0.4"/>
+    <path d="M350 280 L351.5 277 L353 280 L356 281.5 L353 283 L351.5 286 L350 283 L347 281.5Z" fill="#ff8080" opacity="0.4"/>
+  </g>
+
+  <!-- Text: 新龙虾 -->
+  <text x="250" y="370" text-anchor="middle" font-family="'Microsoft YaHei','SimHei','Noto Sans SC',sans-serif" font-size="34" font-weight="bold" fill="white" filter="url(#glowC)">新龙虾</text>
+
+  <!-- Text: NewClaw -->
+  <text x="250" y="405" text-anchor="middle" font-family="'Arial Black','Trebuchet MS',Impact,sans-serif" font-size="28" font-weight="bold" fill="#c080ff" letter-spacing="3" filter="url(#glowC)">NewClaw</text>
+
+  <!-- Text: 中文AI助手 -->
+  <text x="250" y="432" text-anchor="middle" font-family="'Microsoft YaHei','SimHei','Noto Sans SC',sans-serif" font-size="15" fill="#8888aa">中文AI助手</text>
+</svg>
