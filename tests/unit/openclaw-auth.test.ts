@@ -116,7 +116,7 @@ describe('saveProviderKeyToOpenClaw', () => {
       },
     });
     expect(logSpy).toHaveBeenCalledWith(
-      'Saved API key for provider "openrouter" to OpenClaw auth-profiles (agents: main, test3)',
+      'Saved API key for provider "openrouter" to NewClaw auth-profiles (agents: main, test3)',
     );
 
     logSpy.mockRestore();
