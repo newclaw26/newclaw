@@ -126,5 +126,128 @@ export async function handleGatewayRoutes(
     return true;
   }
 
+  // ─── 新增：概览/实例/会话/使用情况/文档 的 Gateway RPC 代理 ───
+
+  if (url.pathname === '/api/gateway/channels' && req.method === 'GET') {
+    try {
+      const channels = await ctx.gatewayManager.rpc<unknown[]>('channels.list', {}, 10000).catch(() => []);
+      sendJson(res, 200, { channels });
+    } catch {
+      sendJson(res, 200, { channels: [] });
+    }
+    return true;
+  }
+
+  if (url.pathname === '/api/gateway/sessions' && req.method === 'GET') {
+    try {
+      const sessions = await ctx.gatewayManager.rpc<unknown[]>('sessions.list', {}, 10000).catch(() => []);
+      sendJson(res, 200, { sessions });
+    } catch {
+      sendJson(res, 200, { sessions: [] });
+    }
+    return true;
+  }
+
+  if (url.pathname === '/api/gateway/sessions/stats' && req.method === 'GET') {
+    try {
+      const stats = await ctx.gatewayManager.rpc<unknown>('sessions.stats', {}, 10000).catch(() => ({ active: 0, total: 0 }));
+      sendJson(res, 200, stats);
+    } catch {
+      sendJson(res, 200, { active: 0, total: 0 });
+    }
+    return true;
+  }
+
+  if (url.pathname.startsWith('/api/gateway/sessions/') && url.pathname.endsWith('/kill') && req.method === 'POST') {
+    try {
+      const sessionKey = decodeURIComponent(url.pathname.replace('/api/gateway/sessions/', '').replace('/kill', ''));
+      await ctx.gatewayManager.rpc('sessions.kill', { sessionKey }, 15000);
+      sendJson(res, 200, { success: true });
+    } catch (error) {
+      sendJson(res, 500, { success: false, error: String(error) });
+    }
+    return true;
+  }
+
+  if (url.pathname === '/api/gateway/instances' && req.method === 'GET') {
+    try {
+      const status = ctx.gatewayManager.getStatus();
+      const instances = [
+        {
+          id: 'gateway',
+          name: 'NewClaw 网关',
+          type: 'gateway',
+          status: status.state === 'running' ? 'running' : status.state === 'error' ? 'error' : 'stopped',
+          port: status.port || 18799,
+          pid: status.pid,
+          startedAt: status.startedAt,
+        },
+      ];
+      // 尝试获取 Code Engine 状态
+      try {
+        const codeStatus = await ctx.gatewayManager.rpc<{ status?: string }>('code-engine.status', {}, 5000);
+        instances.push({
+          id: 'code-engine',
+          name: 'Claude Code 引擎',
+          type: 'code-engine',
+          status: codeStatus?.status === 'ready' ? 'running' : 'stopped',
+          port: 0,
+          pid: undefined as any,
+          startedAt: undefined as any,
+        });
+      } catch {
+        instances.push({
+          id: 'code-engine',
+          name: 'Claude Code 引擎',
+          type: 'code-engine',
+          status: 'stopped',
+          port: 0,
+          pid: undefined as any,
+          startedAt: undefined as any,
+        });
+      }
+      sendJson(res, 200, { instances });
+    } catch {
+      sendJson(res, 200, { instances: [] });
+    }
+    return true;
+  }
+
+  if (url.pathname === '/api/gateway/usage' && req.method === 'GET') {
+    try {
+      const usage = await ctx.gatewayManager.rpc<unknown>('usage.stats', {}, 10000).catch(() => null);
+      if (usage) {
+        sendJson(res, 200, usage);
+      } else {
+        sendJson(res, 200, {
+          totalInputTokens: 0,
+          totalOutputTokens: 0,
+          totalRequests: 0,
+          totalCostUsd: 0,
+          modelBreakdown: [],
+        });
+      }
+    } catch {
+      sendJson(res, 200, {
+        totalInputTokens: 0,
+        totalOutputTokens: 0,
+        totalRequests: 0,
+        totalCostUsd: 0,
+        modelBreakdown: [],
+      });
+    }
+    return true;
+  }
+
+  if (url.pathname === '/api/gateway/documents' && req.method === 'GET') {
+    try {
+      const documents = await ctx.gatewayManager.rpc<unknown[]>('documents.list', {}, 10000).catch(() => []);
+      sendJson(res, 200, { documents });
+    } catch {
+      sendJson(res, 200, { documents: [] });
+    }
+    return true;
+  }
+
   return false;
 }
