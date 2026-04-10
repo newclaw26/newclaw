@@ -1,20 +1,24 @@
 #!/bin/bash
-# Deploy NewClaw Landing Page to GitHub Pages
+# Deploy NewClaw Public Site to GitHub Pages
 # Usage: ./scripts/deploy-landing.sh
 #
-# Deploys docs/landing/index.html to the gh-pages branch as the site root.
-# The page is fully self-contained (inline CSS/JS, no external assets).
+# Deploys the entire public-site/ directory (landing page + web demo)
+# to the gh-pages branch as the site root.
+#
+# Site structure after deployment:
+#   / (root)       -> Landing Page  (public-site/index.html)
+#   /demo/         -> Web Demo      (public-site/demo/index.html)
+#   /.nojekyll     -> Bypass Jekyll processing
 #
 # Prerequisites:
 #   - git installed and authenticated with push access to the remote
 #   - Run from the repository root directory
 #
 # What this script does:
-#   1. Validates the landing page exists
-#   2. Creates a temporary directory with just the landing page
-#   3. Adds .nojekyll to bypass Jekyll processing
-#   4. Force-pushes to the gh-pages branch
-#   5. Cleans up the temporary directory
+#   1. Validates public-site/ directory and required files exist
+#   2. Copies the entire public-site/ directory to a temp deploy dir
+#   3. Force-pushes to the gh-pages branch
+#   4. Cleans up the temporary directory
 #
 # After deploying, enable GitHub Pages in the repo settings:
 #   Settings > Pages > Source: "Deploy from a branch" > Branch: gh-pages / (root)
@@ -23,7 +27,7 @@ set -euo pipefail
 
 # ---- Configuration ----
 REMOTE_URL="https://github.com/newclaw26/newclaw.git"
-LANDING_SRC="docs/landing/index.html"
+SITE_DIR="public-site"
 PAGES_URL="https://newclaw26.github.io/newclaw/"
 BRANCH="gh-pages"
 
@@ -35,17 +39,32 @@ REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || {
 
 cd "$REPO_ROOT"
 
-# ---- Validate landing page exists ----
-if [ ! -f "$LANDING_SRC" ]; then
-    echo "ERROR: Landing page not found at $LANDING_SRC"
-    echo "       Expected path: $REPO_ROOT/$LANDING_SRC"
+# ---- Validate public-site directory and required files ----
+if [ ! -d "$SITE_DIR" ]; then
+    echo "ERROR: Site directory not found at $SITE_DIR"
+    echo "       Expected path: $REPO_ROOT/$SITE_DIR"
     exit 1
 fi
 
-echo "Deploying NewClaw Landing Page to GitHub Pages..."
-echo "  Source:  $REPO_ROOT/$LANDING_SRC"
+if [ ! -f "$SITE_DIR/index.html" ]; then
+    echo "ERROR: Landing page not found at $SITE_DIR/index.html"
+    exit 1
+fi
+
+if [ ! -f "$SITE_DIR/demo/index.html" ]; then
+    echo "ERROR: Web demo not found at $SITE_DIR/demo/index.html"
+    exit 1
+fi
+
+echo "Deploying NewClaw Public Site to GitHub Pages..."
+echo "  Source:  $REPO_ROOT/$SITE_DIR/"
 echo "  Branch:  $BRANCH"
 echo "  Remote:  $REMOTE_URL"
+echo ""
+echo "  Files to deploy:"
+echo "    - index.html        (Landing Page)"
+echo "    - demo/index.html   (Web Demo)"
+echo "    - .nojekyll         (Bypass Jekyll)"
 echo ""
 
 # ---- Detect remote URL from git config (fall back to default) ----
@@ -59,10 +78,10 @@ fi
 TEMP_DIR="$(mktemp -d)"
 trap 'rm -rf "$TEMP_DIR"' EXIT
 
-cp "$LANDING_SRC" "$TEMP_DIR/index.html"
+# Copy the entire public-site directory contents to the temp deploy dir
+cp -R "$SITE_DIR"/. "$TEMP_DIR"/
 
-# .nojekyll prevents GitHub Pages from running Jekyll, which would
-# ignore files starting with underscores and add unnecessary processing.
+# Ensure .nojekyll exists (should already be in public-site/)
 touch "$TEMP_DIR/.nojekyll"
 
 # ---- Create isolated git repo and push ----
@@ -71,17 +90,20 @@ touch "$TEMP_DIR/.nojekyll"
     git init -q
     git checkout -q -b "$BRANCH"
     git add -A
-    git commit -q -m "Deploy NewClaw Landing Page ($(date '+%Y-%m-%d %H:%M:%S'))"
+    git commit -q -m "Deploy NewClaw Public Site ($(date '+%Y-%m-%d %H:%M:%S'))"
     git remote add origin "$REMOTE_URL"
     echo "  Pushing to $BRANCH..."
     git push -f origin "$BRANCH"
 )
 
 echo ""
-echo "Landing page deployed successfully."
+echo "Public site deployed successfully."
 echo ""
-echo "Next steps:"
+echo "  Landing Page: $PAGES_URL"
+echo "  Web Demo:     ${PAGES_URL}demo/"
+echo ""
+echo "Next steps (first time only):"
 echo "  1. Go to https://github.com/newclaw26/newclaw/settings/pages"
 echo "  2. Set Source to 'Deploy from a branch'"
 echo "  3. Select branch: gh-pages / (root)"
-echo "  4. Save -- the page will be live at: $PAGES_URL"
+echo "  4. Save -- the site will be live at: $PAGES_URL"

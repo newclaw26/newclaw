@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NewClaw Trinity - Web Demo</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0a0f;--bg2:#12121a;--bg3:#1a1a28;--border:#2a2a3a;--text:#e4e4ed;--text2:#8888a0;--purple:#8b5cf6;--purple2:#7c3aed;--green:#22c55e;--yellow:#eab308;--red:#ef4444;--blue:#3b82f6;--font:system-ui,-apple-system,sans-serif;--mono:'SF Mono',Monaco,Consolas,monospace}
+body{font-family:var(--font);background:var(--bg);color:var(--text);overflow:hidden;height:100vh}
+/* Layout */
+.app{display:flex;flex-direction:column;height:100vh}
+.header{display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:48px;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px}
+.logo-icon{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;font-size:14px}
+.badge{font-size:10px;padding:2px 8px;border-radius:10px;background:var(--purple);color:#fff;font-weight:600}
+.header-right{display:flex;align-items:center;gap:12px}
+.status-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse-dot 2s infinite}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.4}}
+.dl-btn{font-size:12px;padding:6px 14px;border-radius:6px;background:var(--purple);color:#fff;border:none;cursor:pointer;font-weight:600;transition:all .15s}
+.dl-btn:hover{background:var(--purple2);transform:translateY(-1px)}
+/* Tabs */
+.tabs{display:flex;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0}
+.tab{flex:1;text-align:center;padding:10px 0;font-size:13px;color:var(--text2);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;user-select:none}
+.tab:hover{color:var(--text);background:rgba(139,92,246,.05)}
+.tab.active{color:var(--purple);border-bottom-color:var(--purple);background:rgba(139,92,246,.08)}
+/* Panels */
+.panel{flex:1;overflow:hidden;display:none;flex-direction:column}
+.panel.active{display:flex}
+/* Chat Panel */
+.chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+.chat-messages::-webkit-scrollbar{width:6px}
+.chat-messages::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.msg{display:flex;gap:10px;animation:msg-in .3s ease-out}
+@keyframes msg-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.msg-avatar{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;color:#fff}
+.msg-avatar.ai1{background:linear-gradient(135deg,#8b5cf6,#6d28d9)}
+.msg-avatar.ai2{background:linear-gradient(135deg,#3b82f6,#1d4ed8)}
+.msg-avatar.ai3{background:linear-gradient(135deg,#22c55e,#16a34a)}
+.msg-avatar.sys{background:linear-gradient(135deg,#eab308,#ca8a04)}
+.msg-body{flex:1;min-width:0}
+.msg-header{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.msg-name{font-size:13px;font-weight:600}
+.msg-name.ai1{color:#a78bfa}
+.msg-name.ai2{color:#60a5fa}
+.msg-name.ai3{color:#4ade80}
+.msg-name.sys{color:#facc15}
+.msg-role{font-size:10px;color:var(--text2);padding:1px 6px;border:1px solid var(--border);border-radius:4px}
+.msg-time{font-size:10px;color:var(--text2);margin-left:auto}
+.msg-text{font-size:13px;line-height:1.6;color:var(--text);white-space:pre-wrap;word-break:break-word;background:var(--bg3);border-radius:8px;padding:10px 12px;border:1px solid var(--border)}
+.msg-text h2,.msg-text h3{color:var(--purple);margin:8px 0 4px;font-size:13px}
+.msg-text strong{color:#c4b5fd}
+/* Thinking indicator */
+.thinking{display:flex;align-items:center;gap:10px;padding:8px 12px}
+.radar-wrap{position:relative;width:32px;height:32px}
+.radar-ring{position:absolute;inset:0;border:2px solid var(--purple);border-radius:50%;opacity:.3}
+.radar-sweep{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,transparent 0%,rgba(139,92,246,.4) 25%,transparent 30%);animation:sweep 1.2s linear infinite}
+@keyframes sweep{to{transform:rotate(360deg)}}
+.radar-dot{position:absolute;top:50%;left:50%;width:6px;height:6px;margin:-3px;border-radius:50%;background:var(--purple);animation:pulse-dot 1s infinite}
+.thinking-text{font-size:12px;color:var(--text2);animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+/* Chat input */
+.chat-input-wrap{padding:12px 16px;border-top:1px solid var(--border);background:var(--bg2);flex-shrink:0}
+.chat-input-inner{display:flex;gap:8px;align-items:center}
+.chat-input{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13px;font-family:var(--font);outline:none;resize:none}
+.chat-input:focus{border-color:var(--purple)}
+.chat-input::placeholder{color:var(--text2)}
+.send-btn{width:36px;height:36px;border-radius:8px;background:var(--purple);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+.send-btn:hover{background:var(--purple2)}
+.send-btn:disabled{opacity:.4;cursor:not-allowed}
+.send-btn svg{width:16px;height:16px;fill:#fff}
+/* Dashboard Panel */
+.dashboard{padding:20px;overflow-y:auto;gap:16px;display:flex;flex-direction:column}
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.stat-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.stat-value{font-size:28px;font-weight:700;background:linear-gradient(135deg,var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-label{font-size:11px;color:var(--text2);margin-top:4px}
+.stat-bar{height:4px;background:var(--border);border-radius:2px;margin-top:8px;overflow:hidden}
+.stat-fill{height:100%;border-radius:2px;transition:width 1s ease}
+.section-title{font-size:14px;font-weight:600;color:var(--text2);margin-top:8px}
+.agent-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.agent-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px}
+.agent-card .msg-avatar{width:40px;height:40px;font-size:14px}
+.agent-info{flex:1}
+.agent-title{font-size:13px;font-weight:600}
+.agent-status{font-size:11px;display:flex;align-items:center;gap:4px;margin-top:2px}
+.agent-status .dot{width:6px;height:6px;border-radius:50%}
+.agent-stat{font-size:11px;color:var(--text2);margin-top:4px}
+/* Timeline */
+.timeline{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.tl-item{display:flex;align-items:flex-start;gap:10px;font-size:12px}
+.tl-dot{width:8px;height:8px;border-radius:50%;margin-top:4px;flex-shrink:0}
+.tl-content{flex:1}
+.tl-time{color:var(--text2);font-size:10px}
+/* Market Panel */
+.market{padding:20px;overflow-y:auto;gap:16px;display:flex;flex-direction:column}
+.market-header{display:flex;justify-content:space-between;align-items:center}
+.balance{font-size:13px;color:var(--text2)}
+.balance span{color:var(--yellow);font-weight:700;font-size:15px}
+.playbook-grid{display:flex;flex-direction:column;gap:12px}
+.playbook{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;transition:border-color .2s}
+.playbook:hover{border-color:var(--purple)}
+.pb-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.pb-title{font-size:14px;font-weight:600}
+.pb-price{font-size:14px;font-weight:700;color:var(--yellow);white-space:nowrap}
+.pb-desc{font-size:12px;color:var(--text2);margin-top:6px;line-height:1.5}
+.pb-meta{display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap}
+.pb-tag{font-size:10px;padding:2px 8px;border-radius:4px;background:rgba(139,92,246,.15);color:#c4b5fd;border:1px solid rgba(139,92,246,.25)}
+.pb-quality{font-size:10px;margin-left:auto;color:var(--text2)}
+.pb-quality span{font-weight:700}
+.buy-btn{margin-top:12px;width:100%;padding:8px;border-radius:8px;background:linear-gradient(135deg,var(--purple),var(--blue));border:none;color:#fff;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s}
+.buy-btn:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(139,92,246,.3)}
+.buy-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+.buy-btn.bought{background:var(--green);cursor:default}
+/* Purchase animation overlay */
+.purchase-overlay{position:fixed;inset:0;background:rgba(10,10,15,.85);display:flex;align-items:center;justify-content:center;z-index:100;animation:fade-in .2s}
+@keyframes fade-in{from{opacity:0}to{opacity:1}}
+.purchase-modal{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:32px;text-align:center;width:320px;animation:scale-in .3s ease-out}
+@keyframes scale-in{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+.purchase-icon{width:64px;height:64px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:28px}
+.purchase-icon.pending{background:rgba(139,92,246,.2);animation:spin-icon 1s linear infinite}
+.purchase-icon.success{background:rgba(34,197,94,.2)}
+@keyframes spin-icon{to{transform:rotate(360deg)}}
+.purchase-title{font-size:16px;font-weight:700;margin-bottom:8px}
+.purchase-detail{font-size:13px;color:var(--text2);line-height:1.6}
+/* Watermark */
+.watermark{position:fixed;bottom:12px;right:16px;font-size:10px;color:var(--text2);opacity:.5;pointer-events:none}
+/* Responsive */
+@media(max-width:600px){.dash-grid{grid-template-columns:1fr 1fr}.agent-cards{grid-template-columns:1fr}.header{padding:0 12px}.chat-messages{padding:12px}.dashboard,.market{padding:14px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon">NC</div>
+      <span>NewClaw Trinity</span>
+      <span class="badge">DEMO</span>
+    </div>
+    <div class="header-right">
+      <div class="status-dot"></div>
+      <span style="font-size:11px;color:var(--text2)">3 AI 在线</span>
+      <button class="dl-btn" onclick="window.open('https://github.com/newclaw/newclaw','_blank')">下载完整版</button>
+    </div>
+  </header>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="chat" onclick="switchTab('chat')">团队群聊</div>
+    <div class="tab" data-tab="dashboard" onclick="switchTab('dashboard')">仪表盘</div>
+    <div class="tab" data-tab="market" onclick="switchTab('market')">知识市场</div>
+  </div>
+
+  <!-- Chat Panel -->
+  <div class="panel active" id="panel-chat">
+    <div class="chat-messages" id="chat-messages"></div>
+    <div class="chat-input-wrap">
+      <div class="chat-input-inner">
+        <input class="chat-input" id="chat-input" placeholder="输入任务指令，三核 AI 将协同响应..." maxlength="200" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendTask()}">
+        <button class="send-btn" id="send-btn" onclick="sendTask()">
+          <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard Panel -->
+  <div class="panel" id="panel-dashboard">
+    <div class="dashboard" id="dashboard-content"></div>
+  </div>
+
+  <!-- Market Panel -->
+  <div class="panel" id="panel-market">
+    <div class="market" id="market-content"></div>
+  </div>
+</div>
+
+<div class="watermark">NewClaw Trinity Demo v7.0 - 浏览器预览版</div>
+
+<script>
+// ============================================================================
+// NewClaw Trinity Web Demo — Self-Contained Interactive Demo
+// ============================================================================
+
+// ---------------------------------------------------------------------------
+// Tab Switching
+// ---------------------------------------------------------------------------
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + name));
+  if (name === 'dashboard') renderDashboard();
+  if (name === 'market') renderMarket();
+}
+
+// ---------------------------------------------------------------------------
+// Trinity Agent Definitions
+// ---------------------------------------------------------------------------
+const AGENTS = {
+  ai1: { name: 'AI-1 扩张者', cls: 'ai1', avatar: 'E', role: '策略执行' },
+  ai2: { name: 'AI-2 审计者', cls: 'ai2', avatar: 'A', role: '风控审计' },
+  ai3: { name: 'AI-3 治理者', cls: 'ai3', avatar: 'G', role: '决策治理' },
+  sys: { name: '系统', cls: 'sys', avatar: 'S', role: '协调' }
+};
+
+// ---------------------------------------------------------------------------
+// StubProvider Response Variants (from llm-provider.ts)
+// ---------------------------------------------------------------------------
+const STUB = {
+  ai1: [
+    '## 执行方案\n\n### 1. 机会分析\n该任务具有高价值潜力，与当前阶段目标高度对齐。核心需求明确，技术路径可行。\n\n### 2. 策略建议\n建议采用渐进式实现路径，先完成核心功能验证，再扩展边缘场景。\n\n### 3. 执行步骤\n1) 环境准备与依赖检查\n2) 核心逻辑实现与接口定义\n3) 单元测试覆盖（目标 >80%）\n4) 集成验证与回归测试\n\n**GoalFit 评分: 85/100**',
+    '## 策略提案\n\n**核心思路**: 利用现有模块的组合能力，最大化复用率。\n\n**具体步骤**:\n1. 复用 Oracle 模块的评估逻辑\n2. 扩展 Market 模块支持新交易类型\n3. 通过 PoO 验证确保结果可追溯\n4. 部署到模拟环境进行压力测试\n\n**GoalFit: 82/100**',
+    '## 扩张分析报告\n\n### 推荐方案\n采用模块化架构，拆分为三个独立子模块：\n- **数据层**: 状态持久化与查询优化\n- **逻辑层**: 业务规则与验证流程\n- **接口层**: 标准化 API\n\n### 收益预测\n- GoalFit: 88/100\n- 复用率: 高\n- 技术债务: 无新增'
+  ],
+  ai2: [
+    '## 审计报告\n\n### 风险识别\n- ✅ 代码逻辑: 控制流清晰，无明显缺陷\n- ✅ 安全边界: 权限调用在 L0-L1 范围内\n- ⚠️ 边缘情况: 需补充空输入防御处理\n\n### 证据等级: H3\n\n**结论: 通过（附条件）**',
+    '## 风控审查\n\n### 1. 安全审计\n- 无越权操作风险\n- 数据流符合治理账本规范\n- 无外部依赖注入风险\n\n### 2. 风险评估\n- 财务风险: 低\n- 技术风险: 低\n- 合规风险: 无\n\n**结论: 审计通过，建议执行**',
+    '## 安全与合规审查\n\n### 风险清单\n| 编号 | 风险描述 | 等级 | 状态 |\n|------|----------|------|------|\n| R-01 | 空值未处理 | 低 | 需修复 |\n| R-02 | 并发竞态 | 无 | 通过 |\n| R-03 | 权限越界 | 无 | 通过 |\n\n### 证据等级: H3\n\n**通过** — 修复 R-01 后进入执行阶段。'
+  ],
+  ai3: [
+    '## 治理决定\n\n### 1. 成本评估\n- 预算消耗: 0 SIM\n- 资源占用: 低\n\n### 2. 决定\n**✅ 批准执行**\n\n### 3. 理由\n- GoalFit 评分达标\n- 审计已通过\n- 风险在可接受范围内\n\n信用记录已更新。',
+    '## 财务治理意见\n\n### 批准状态: ✅ 已批准\n\n**预算**: 0 SIM（内部任务）\n**权限等级**: L0（自动执行）\n**审计状态**: 已通过\n\n本任务满足执行标准。结果将由 Oracle 验证后记入信用账本。',
+    '## 治理裁决\n\n| 维度 | 评分 | 状态 |\n|------|------|------|\n| 战略对齐 | 高 | ✅ |\n| 风险可控 | 是 | ✅ |\n| 预算合规 | 是 | ✅ |\n| 审计通过 | 是 | ✅ |\n\n**✅ 批准执行**\n\n执行完成后需提交 Oracle 验证。'
+  ]
+};
+let stubIdx = { ai1: 0, ai2: 0, ai3: 0 };
+
+function getStubResponse(role) {
+  const arr = STUB[role];
+  const r = arr[stubIdx[role] % arr.length];
+  stubIdx[role]++;
+  return r;
+}
+
+// ---------------------------------------------------------------------------
+// Chat Rendering
+// ---------------------------------------------------------------------------
+let msgCount = 0;
+
+function formatTime() {
+  const d = new Date();
+  return d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
+}
+
+function addMessage(agentKey, text, extraClass) {
+  const a = AGENTS[agentKey];
+  const el = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = 'msg' + (extraClass ? ' ' + extraClass : '');
+  // Simple markdown-like rendering
+  let html = text
+    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n/g, '<br>');
+  div.innerHTML = `
+    <div class="msg-avatar ${a.cls}">${a.avatar}</div>
+    <div class="msg-body">
+      <div class="msg-header">
+        <span class="msg-name ${a.cls}">${a.name}</span>
+        <span class="msg-role">${a.role}</span>
+        <span class="msg-time">${formatTime()}</span>
+      </div>
+      <div class="msg-text">${html}</div>
+    </div>`;
+  el.appendChild(div);
+  el.scrollTop = el.scrollHeight;
+  msgCount++;
+}
+
+function addThinking(agentKey) {
+  const a = AGENTS[agentKey];
+  const el = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = 'thinking';
+  div.id = 'thinking-' + agentKey;
+  div.innerHTML = `
+    <div class="radar-wrap">
+      <div class="radar-ring"></div>
+      <div class="radar-sweep"></div>
+      <div class="radar-dot"></div>
+    </div>
+    <span class="thinking-text">${a.name} 正在分析中...</span>`;
+  el.appendChild(div);
+  el.scrollTop = el.scrollHeight;
+}
+
+function removeThinking(agentKey) {
+  const el = document.getElementById('thinking-' + agentKey);
+  if (el) el.remove();
+}
+
+// ---------------------------------------------------------------------------
+// Pre-Scripted Conversation (initial load)
+// ---------------------------------------------------------------------------
+const INITIAL_CONVERSATION = [
+  { agent: 'sys', text: '三核 AI 协同系统已上线。Trinity Pipeline 就绪。' },
+  { agent: 'sys', text: '当前节点: Stage-0 (本地模拟)  |  信用余额: 1,000 SIM  |  权限等级: L0-L1' },
+  { agent: 'ai1', text: '## 系统就绪报告\n\n扩张者模块初始化完成。当前评估队列为空，等待新任务输入。\n\n已就绪的能力:\n- 策略分析与方案生成\n- Playbook 制作与上架\n- GoalFit 自动评分\n\n**状态: 待命**' },
+  { agent: 'ai2', text: '## 审计系统在线\n\n审计者模块校准完毕。实时监控已激活。\n\n当前监控指标:\n- 权限矩阵: 正常（L0-L1 开放）\n- 治理账本: 已同步\n- 证据等级要求: H3+\n\n**状态: 监控中**' },
+  { agent: 'ai3', text: '## 治理层启动\n\n治理者模块初始化成功。预算审批流水线就绪。\n\n当前配额:\n- SIM 信用: 1,000\n- 自动审批阈值: L0 任务\n- Oracle 验证: 已连接\n\n**状态: 准备就绪**' }
+];
+
+async function playInitialConversation() {
+  for (let i = 0; i < INITIAL_CONVERSATION.length; i++) {
+    const item = INITIAL_CONVERSATION[i];
+    await delay(i === 0 ? 300 : 600);
+    addMessage(item.agent, item.text);
+  }
+}
+
+function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// ---------------------------------------------------------------------------
+// Task Processing — Trinity Pipeline Simulation
+// ---------------------------------------------------------------------------
+let isProcessing = false;
+
+async function sendTask() {
+  const input = document.getElementById('chat-input');
+  const btn = document.getElementById('send-btn');
+  const text = input.value.trim();
+  if (!text || isProcessing) return;
+
+  isProcessing = true;
+  btn.disabled = true;
+  input.value = '';
+
+  // User message as system broadcast
+  addMessage('sys', '收到新任务指令: ' + text);
+  await delay(400);
+
+  // Phase 1: AI-1 Expander
+  addMessage('sys', '阶段 1/3  |  AI-1 扩张者 正在生成执行方案...');
+  addThinking('ai1');
+  await delay(1200 + Math.random() * 800);
+  removeThinking('ai1');
+  addMessage('ai1', getStubResponse('ai1'));
+  await delay(300);
+
+  // Phase 2: AI-2 Auditor
+  addMessage('sys', '阶段 2/3  |  AI-2 审计者 正在进行风控审查...');
+  addThinking('ai2');
+  await delay(1000 + Math.random() * 600);
+  removeThinking('ai2');
+  addMessage('ai2', getStubResponse('ai2'));
+  await delay(300);
+
+  // Phase 3: AI-3 Governor
+  addMessage('sys', '阶段 3/3  |  AI-3 治理者 正在做出最终决策...');
+  addThinking('ai3');
+  await delay(800 + Math.random() * 500);
+  removeThinking('ai3');
+  addMessage('ai3', getStubResponse('ai3'));
+  await delay(300);
+
+  // Pipeline complete
+  addMessage('sys', '✅ Trinity Pipeline 完成  |  任务已批准并进入执行队列  |  Oracle 验证已排队');
+
+  isProcessing = false;
+  btn.disabled = false;
+  input.focus();
+}
+
+// ---------------------------------------------------------------------------
+// Dashboard Panel
+// ---------------------------------------------------------------------------
+function renderDashboard() {
+  const el = document.getElementById('dashboard-content');
+  el.innerHTML = `
+    <div class="section-title">系统概览</div>
+    <div class="dash-grid">
+      <div class="stat-card">
+        <div class="stat-value">15</div>
+        <div class="stat-label">功能模块</div>
+        <div class="stat-bar"><div class="stat-fill" style="width:100%;background:var(--purple)"></div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">547</div>
+        <div class="stat-label">测试用例</div>
+        <div class="stat-bar"><div class="stat-fill" style="width:94%;background:var(--green)"></div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">94%</div>
+        <div class="stat-label">测试覆盖率</div>
+        <div class="stat-bar"><div class="stat-fill" style="width:94%;background:var(--green)"></div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">1,000</div>
+        <div class="stat-label">SIM 信用</div>
+        <div class="stat-bar"><div class="stat-fill" style="width:100%;background:var(--yellow)"></div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">S-0</div>
+        <div class="stat-label">节点阶段</div>
+        <div class="stat-bar"><div class="stat-fill" style="width:20%;background:var(--blue)"></div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${msgCount}</div>
+        <div class="stat-label">消息总数</div>
+        <div class="stat-bar"><div class="stat-fill" style="width:${Math.min(msgCount*5,100)}%;background:var(--purple)"></div></div>
+      </div>
+    </div>
+
+    <div class="section-title">三核 AI 状态</div>
+    <div class="agent-cards">
+      <div class="agent-card">
+        <div class="msg-avatar ai1">E</div>
+        <div class="agent-info">
+          <div class="agent-title" style="color:#a78bfa">AI-1 扩张者</div>
+          <div class="agent-status"><div class="dot" style="background:var(--green)"></div> 在线 - 待命</div>
+          <div class="agent-stat">策略生成 | GoalFit 评分 | Playbook 制作</div>
+        </div>
+      </div>
+      <div class="agent-card">
+        <div class="msg-avatar ai2">A</div>
+        <div class="agent-info">
+          <div class="agent-title" style="color:#60a5fa">AI-2 审计者</div>
+          <div class="agent-status"><div class="dot" style="background:var(--green)"></div> 在线 - 监控中</div>
+          <div class="agent-stat">风控审查 | 证据分级 | 安全验证</div>
+        </div>
+      </div>
+      <div class="agent-card">
+        <div class="msg-avatar ai3">G</div>
+        <div class="agent-info">
+          <div class="agent-title" style="color:#4ade80">AI-3 治理者</div>
+          <div class="agent-status"><div class="dot" style="background:var(--green)"></div> 在线 - 就绪</div>
+          <div class="agent-stat">预算审批 | 信用管理 | Oracle 对接</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">近期活动</div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--purple)"></div>
+        <div class="tl-content">三核系统初始化完成<br><span class="tl-time">刚刚</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--green)"></div>
+        <div class="tl-content">治理账本同步成功<br><span class="tl-time">1 分钟前</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--blue)"></div>
+        <div class="tl-content">权限矩阵加载完毕 (L0-L4)<br><span class="tl-time">2 分钟前</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--yellow)"></div>
+        <div class="tl-content">Oracle 验证规则已加载 (5 条)<br><span class="tl-time">2 分钟前</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--green)"></div>
+        <div class="tl-content">LLM Provider: stub (demo) 已就绪<br><span class="tl-time">3 分钟前</span></div>
+      </div>
+    </div>
+
+    <div class="section-title">架构模块</div>
+    <div class="dash-grid">
+      ${['Constitution 宪法层','Trinity Engine 三核引擎','Governance Ledger 治理账本',
+         'Outcome Oracle 结果预言机','Fuse Matrix 权限熔断','Node Promotion 节点晋升',
+         'Knowledge Market 知识市场','Identity 身份模块','Economy 经济系统',
+         'LLM Provider 大模型接口','PoO Verifier 工作证明','Trinity Orchestrator 编排器',
+         'Adapter 适配层','Persistence 持久化','Channel System 频道系统'
+        ].map(m => `<div class="stat-card" style="padding:10px"><div style="font-size:12px;color:var(--text)">${m}</div><div style="font-size:10px;color:var(--green);margin-top:4px">✓ 已加载</div></div>`).join('')}
+    </div>`;
+}
+
+// ---------------------------------------------------------------------------
+// Market Panel
+// ---------------------------------------------------------------------------
+const PLAYBOOKS = [
+  {
+    id: 'pb1', title: 'Playbook: API 集成自动化',
+    desc: '自动化 REST API 集成测试与验证流水线。扫描 API 文档、生成 TypeScript SDK、编写集成测试、执行自动验证、输出合规报告。',
+    price: 50, tags: ['API', '测试', '集成'], quality: 85, seller: 'node-alpha', bought: false
+  },
+  {
+    id: 'pb2', title: 'Playbook: 智能合约审计',
+    desc: '系统化 Clarity 智能合约安全审计工作流。静态分析、手动审查清单、关键路径形式化验证、Gas 优化分析、生成审计报告。',
+    price: 120, tags: ['合约', '审计', '安全'], quality: 92, seller: 'node-beta', bought: false
+  },
+  {
+    id: 'pb3', title: 'Playbook: 数据管道构建器',
+    desc: '端到端数据管道搭建与监控配置。定义数据 Schema、配置 ETL 流程、设置监控告警、验证数据质量、支持回滚的部署方案。',
+    price: 75, tags: ['数据', 'ETL', '管道'], quality: 78, seller: 'node-gamma', bought: false
+  }
+];
+let simBalance = 1000;
+
+function renderMarket() {
+  const el = document.getElementById('market-content');
+  el.innerHTML = `
+    <div class="market-header">
+      <div class="section-title">知识市场 — Playbook 交易所</div>
+      <div class="balance">信用余额: <span>${simBalance} SIM</span></div>
+    </div>
+    <div class="playbook-grid">
+      ${PLAYBOOKS.map(pb => `
+        <div class="playbook" id="playbook-${pb.id}">
+          <div class="pb-top">
+            <div class="pb-title">${pb.title}</div>
+            <div class="pb-price">${pb.price} SIM</div>
+          </div>
+          <div class="pb-desc">${pb.desc}</div>
+          <div class="pb-meta">
+            ${pb.tags.map(t => `<span class="pb-tag">${t}</span>`).join('')}
+            <span class="pb-quality">质量评分: <span style="color:${pb.quality>=85?'var(--green)':'var(--yellow)}'}">${pb.quality}/100</span></span>
+          </div>
+          <button class="buy-btn${pb.bought ? ' bought' : ''}" ${pb.bought ? 'disabled' : ''} onclick="buyPlaybook('${pb.id}')">
+            ${pb.bought ? '✓ 已购买' : '购买 — ' + pb.price + ' SIM'}
+          </button>
+        </div>`).join('')}
+    </div>`;
+}
+
+async function buyPlaybook(id) {
+  const pb = PLAYBOOKS.find(p => p.id === id);
+  if (!pb || pb.bought || simBalance < pb.price) return;
+
+  // Show purchase overlay
+  const overlay = document.createElement('div');
+  overlay.className = 'purchase-overlay';
+  overlay.id = 'purchase-overlay';
+  overlay.innerHTML = `
+    <div class="purchase-modal">
+      <div class="purchase-icon pending">⟳</div>
+      <div class="purchase-title">正在处理交易...</div>
+      <div class="purchase-detail">
+        购买: ${pb.title}<br>
+        价格: ${pb.price} SIM<br>
+        卖方: ${pb.seller}
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+
+  // Simulate transaction processing
+  await delay(1500);
+
+  // Success
+  pb.bought = true;
+  simBalance -= pb.price;
+  const modal = overlay.querySelector('.purchase-modal');
+  modal.innerHTML = `
+    <div class="purchase-icon success">✓</div>
+    <div class="purchase-title" style="color:var(--green)">交易完成</div>
+    <div class="purchase-detail">
+      已购买: ${pb.title}<br>
+      花费: ${pb.price} SIM<br>
+      剩余余额: ${simBalance} SIM<br><br>
+      <span style="color:var(--text2)">已记入治理账本 | Oracle 验证已排队</span>
+    </div>`;
+
+  await delay(2000);
+  overlay.remove();
+  renderMarket();
+}
+
+// ---------------------------------------------------------------------------
+// Initialization
+// ---------------------------------------------------------------------------
+document.addEventListener('DOMContentLoaded', () => {
+  playInitialConversation();
+  document.getElementById('chat-input').focus();
+});
+</script>
+</body>
+</html>

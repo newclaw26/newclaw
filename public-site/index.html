@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<!-- Title -->
+<title>NewClaw - AI Agent Governance Framework | AI 代理治理框架</title>
+
+<!-- Favicon (SVG emoji) -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1F409;</text></svg>">
+
+<!-- Basic SEO Meta Tags -->
+<meta name="description" content="NewClaw - 第一个让 AI 代理拥有身份、经济和治理的开源框架。Trinity 三核引擎 + 知识市场 + New.B 经济系统。">
+<meta name="keywords" content="AI agent, AI framework, LLM, Trinity, governance, NewClaw, 人工智能, AI代理, 开源框架">
+<meta name="author" content="NewClaw Team">
+<meta name="robots" content="index,follow">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="https://newclaw.dev/">
+
+<!-- Language Alternates -->
+<link rel="alternate" hreflang="zh-CN" href="https://newclaw.dev/">
+<link rel="alternate" hreflang="en" href="https://newclaw.dev/en/">
+<link rel="alternate" hreflang="x-default" href="https://newclaw.dev/">
+
+<!-- Open Graph / Facebook / LinkedIn -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="NewClaw - AI Agent Governance Framework | AI 代理治理框架">
+<meta property="og:description" content="第一个让 AI 代理拥有身份、经济和治理的开源框架。Trinity 三核引擎 + 知识市场 + New.B 经济系统。">
+<meta property="og:url" content="https://newclaw.dev/">
+<meta property="og:image" content="https://newclaw.dev/og-image.png">
+<meta property="og:site_name" content="NewClaw">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en_US">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NewClaw - AI Agent Governance Framework | AI 代理治理框架">
+<meta name="twitter:description" content="第一个让 AI 代理拥有身份、经济和治理的开源框架。Trinity 三核引擎 + 知识市场 + New.B 经济系统。">
+<meta name="twitter:image" content="https://newclaw.dev/og-image.png">
+
+<!-- Structured Data: JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "NewClaw",
+  "description": "The first open-source framework where AI agents have identity, economy and governance. Trinity three-core engine + knowledge marketplace + New.B economic system.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "macOS, Windows, Linux",
+  "url": "https://newclaw.dev/",
+  "license": "https://opensource.org/licenses/MIT",
+  "author": {
+    "@type": "Organization",
+    "name": "NewClaw Team",
+    "url": "https://github.com/newclaw26"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "softwareVersion": "6.0",
+  "downloadUrl": "https://github.com/newclaw26/newclaw"
+}
+</script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--surface:#12121a;--border:#1e1e2e;--purple:#8b5cf6;--purple2:#a78bfa;--blue:#3b82f6;--amber:#f59e0b;--emerald:#10b981;--text:#e2e8f0;--muted:#64748b}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.6;overflow-x:hidden}
+a{color:var(--purple2);text-decoration:none}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+/* NAV */
+nav{position:fixed;top:0;width:100%;background:rgba(10,10,15,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:100;padding:14px 0}
+nav .container{display:flex;justify-content:space-between;align-items:center}
+nav .logo{font-weight:800;font-size:1.2rem;letter-spacing:-.5px}
+nav .links{display:flex;gap:24px;font-size:.875rem}
+nav .links a{color:var(--muted);transition:color .2s}
+nav .links a:hover{color:#fff}
+@media(max-width:640px){nav .links{display:none}}
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(139,92,246,.15),transparent 70%);top:-100px;left:50%;transform:translateX(-50%);pointer-events:none}
+.hero h1{font-size:clamp(3rem,8vw,5.5rem);font-weight:900;letter-spacing:-2px;background:linear-gradient(135deg,#fff 30%,var(--purple2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.hero .dragon{font-size:clamp(2rem,5vw,3.5rem);margin-bottom:16px;display:block;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.hero .tagline{font-size:clamp(1rem,2.5vw,1.35rem);color:var(--muted);max-width:600px;margin:0 auto 12px}
+.hero .tagline-en{font-size:.9rem;color:#475569;margin-bottom:32px}
+.btn{display:inline-block;padding:14px 36px;background:var(--purple);color:#fff;border-radius:10px;font-weight:700;font-size:1rem;transition:all .25s;border:none;cursor:pointer}
+.btn:hover{background:#7c3aed;transform:translateY(-2px);box-shadow:0 8px 30px rgba(139,92,246,.35)}
+.badge{display:inline-flex;align-items:center;gap:6px;margin-top:20px;padding:6px 16px;border:1px solid var(--border);border-radius:20px;font-size:.8rem;color:var(--muted)}
+/* SECTIONS */
+section{padding:100px 0}
+.section-label{font-size:.75rem;text-transform:uppercase;letter-spacing:3px;color:var(--purple);font-weight:700;margin-bottom:8px}
+.section-title{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:800;margin-bottom:16px;letter-spacing:-1px}
+.section-sub{color:var(--muted);max-width:560px;margin-bottom:48px}
+/* PROBLEMS */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px;transition:all .3s}
+.card:hover{border-color:var(--purple);transform:translateY(-4px);box-shadow:0 12px 40px rgba(139,92,246,.1)}
+.card .icon{font-size:1.8rem;margin-bottom:12px}
+.card h3{font-size:1.1rem;margin-bottom:8px;font-weight:700}
+.card p{font-size:.875rem;color:var(--muted);line-height:1.7}
+.card .solution{margin-top:12px;padding-top:12px;border-top:1px solid var(--border);color:var(--emerald);font-size:.8rem;font-weight:600}
+/* FEATURES */
+.features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.feat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px;transition:all .3s}
+.feat:hover{border-color:var(--purple)}
+.feat .emoji{font-size:1.5rem;margin-bottom:8px}
+.feat h4{font-size:.95rem;margin-bottom:6px;font-weight:700}
+.feat p{font-size:.78rem;color:var(--muted);line-height:1.6}
+/* ARCH */
+.arch-stack{display:flex;flex-direction:column;gap:4px;max-width:700px;margin:0 auto}
+.arch-layer{padding:18px 24px;border-radius:10px;border:1px solid var(--border);text-align:center;position:relative;transition:all .3s}
+.arch-layer:hover{border-color:var(--purple);background:rgba(139,92,246,.05)}
+.arch-layer .label{font-weight:800;font-size:.95rem;margin-bottom:4px}
+.arch-layer .detail{font-size:.75rem;color:var(--muted)}
+.arch-layer.l1{background:linear-gradient(135deg,rgba(59,130,246,.1),rgba(139,92,246,.08))}
+.arch-layer.l2{background:rgba(16,185,129,.06)}
+.arch-layer.l3{background:rgba(245,158,11,.06)}
+.arch-layer.l4{background:rgba(139,92,246,.06)}
+.arch-layer.l5{background:rgba(59,130,246,.04)}
+.arch-layer.l6{background:rgba(100,116,139,.06)}
+.arch-connector{text-align:center;color:var(--muted);font-size:.7rem;padding:2px 0}
+/* TRINITY DEMO */
+.chat-demo{max-width:500px;margin:0 auto;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;overflow:hidden}
+.chat-header{display:flex;align-items:center;gap:8px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.chat-header .dot{width:8px;height:8px;border-radius:50%;animation:pulse 2s infinite}
+.chat-header .dot.blue{background:var(--blue)}
+.chat-header .dot.amber{background:var(--amber)}
+.chat-header .dot.green{background:var(--emerald)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.chat-header span{font-size:.85rem;font-weight:600}
+.chat-msg{display:flex;gap:10px;margin-bottom:14px;opacity:0;animation:msgIn .5s forwards}
+.chat-msg:nth-child(2){animation-delay:.3s}
+.chat-msg:nth-child(3){animation-delay:1.2s}
+.chat-msg:nth-child(4){animation-delay:2.1s}
+.chat-msg:nth-child(5){animation-delay:3s}
+.chat-msg:nth-child(6){animation-delay:3.9s}
+@keyframes msgIn{to{opacity:1;transform:translateY(0)}}
+.chat-msg{transform:translateY(8px)}
+.avatar{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;flex-shrink:0;color:#fff}
+.avatar.a1{background:var(--blue)}
+.avatar.a2{background:var(--amber)}
+.avatar.a3{background:var(--emerald)}
+.bubble{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-size:.8rem;line-height:1.5;max-width:380px}
+.bubble .name{font-weight:700;font-size:.7rem;margin-bottom:4px}
+.bubble .name.blue{color:var(--blue)}
+.bubble .name.amber{color:var(--amber)}
+.bubble .name.green{color:var(--emerald)}
+/* TABLE */
+.cmp-table{width:100%;border-collapse:collapse;font-size:.8rem;overflow-x:auto;display:block}
+.cmp-table th,.cmp-table td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--border)}
+.cmp-table th{color:var(--muted);font-weight:600;font-size:.7rem;text-transform:uppercase;letter-spacing:1px}
+.cmp-table th:first-child{min-width:120px}
+.cmp-table td:nth-child(2){color:var(--purple2);font-weight:600}
+.cmp-table td{white-space:nowrap}
+.check{color:var(--emerald)}
+.cross{color:#ef4444}
+/* CODE */
+.code-block{background:#0d1117;border:1px solid var(--border);border-radius:12px;padding:24px;font-family:"SF Mono",Consolas,monospace;font-size:.82rem;line-height:1.8;overflow-x:auto;color:#c9d1d9}
+.code-block .comment{color:#8b949e}
+.code-block .cmd{color:var(--emerald)}
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;text-align:center}
+.stat-item{padding:28px 16px;background:var(--surface);border:1px solid var(--border);border-radius:14px}
+.stat-item .num{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:900;background:linear-gradient(135deg,var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-item .label{font-size:.78rem;color:var(--muted);margin-top:4px}
+/* CTA */
+.cta-section{text-align:center;padding:80px 24px;background:linear-gradient(180deg,transparent,rgba(139,92,246,.06))}
+.cta-section h2{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;margin-bottom:12px}
+.cta-section p{color:var(--muted);margin-bottom:32px}
+.cta-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border:1px solid var(--border);border-radius:10px;color:var(--text);font-weight:600;font-size:.95rem;transition:all .25s}
+.btn-outline:hover{border-color:var(--purple);background:rgba(139,92,246,.08)}
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:40px 0;text-align:center}
+footer .links{display:flex;justify-content:center;gap:24px;margin-bottom:16px;flex-wrap:wrap;font-size:.85rem}
+footer .copy{font-size:.75rem;color:var(--muted)}
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(30px);transition:all .7s cubic-bezier(.16,1,.3,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="logo">NewClaw</div>
+    <div class="links">
+      <a href="#features">功能</a>
+      <a href="#arch">架构</a>
+      <a href="#trinity">Trinity</a>
+      <a href="#compare">对比</a>
+      <a href="#start">快速开始</a>
+      <a href="https://github.com/newclaw26/newclaw" target="_blank">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <span class="dragon">&#x1F409;</span>
+    <h1>NewClaw</h1>
+    <p class="tagline">第一个让 AI 代理拥有身份、经济和治理的开源框架</p>
+    <p class="tagline-en">The first open-source framework where AI agents have identity, economy &amp; governance.</p>
+    <a href="./demo/" class="btn">立即体验</a>
+    <div class="badge">&#x2B50; GitHub Stars &middot; MIT License &middot; 508 Tests Passing</div>
+  </div>
+</section>
+
+<!-- PROBLEMS -->
+<section id="problems">
+  <div class="container">
+    <div class="section-label reveal">痛点与方案</div>
+    <h2 class="section-title reveal">为什么现有框架不够？</h2>
+    <p class="section-sub reveal">Why existing frameworks fall short</p>
+    <div class="cards">
+      <div class="card reveal">
+        <div class="icon">&#x1F6AB;</div>
+        <h3>没有权限控制</h3>
+        <p>LangChain 只能串联 prompt，Agent 输出不可审计，生产环境不敢用。</p>
+        <div class="solution">&#x2192; NewClaw: L0-L4 权限保险丝矩阵，危险操作执行前拦截</div>
+      </div>
+      <div class="card reveal">
+        <div class="icon">&#x1F525;</div>
+        <h3>无法验证产出</h3>
+        <p>AutoGPT 跑飞了没有刹车，烧 token 没有产出验证，无法衡量真实价值。</p>
+        <div class="solution">&#x2192; NewClaw: PoO 结果预言机，PriorityScore &#x2265; 85 防止空转</div>
+      </div>
+      <div class="card reveal">
+        <div class="icon">&#x1F916;</div>
+        <h3>缺乏经济激励</h3>
+        <p>CrewAI 有角色但无制衡，无法构建可商业化的 Agent 生态和知识交易。</p>
+        <div class="solution">&#x2192; NewClaw: New.B 经济系统 + 知识市场，成功策略变资产</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <div class="section-label reveal">核心功能</div>
+    <h2 class="section-title reveal">10 大核心引擎 <span style="color:var(--muted);font-weight:400;font-size:.6em">Key Features</span></h2>
+    <p class="section-sub reveal">从治理到经济，从身份到进化，全栈 AI 代理基础设施</p>
+    <div class="features-grid">
+      <div class="feat reveal"><div class="emoji">&#x1F3DB;</div><h4>Trinity 三核引擎</h4><p>AI-1 提案、AI-2 审计、AI-3 治理，六阶段决策流水线</p></div>
+      <div class="feat reveal"><div class="emoji">&#x1F4AC;</div><h4>实时 AI 辩论群聊</h4><p>三个代理在群聊中思考辩论，色彩编码气泡实时呈现</p></div>
+      <div class="feat reveal"><div class="emoji">&#x1F4D6;</div><h4>六本治理账本</h4><p>证据 / 价值 / 债务 / 时效 / 判例 / 交易，SHA-256 哈希链</p></div>
+      <div class="feat reveal"><div class="emoji">&#x1F52E;</div><h4>结果预言机 PoO</h4><p>每次执行生成 OutcomeReport，链上评分与结算</p></div>
+      <div class="feat reveal"><div class="emoji">&#x26A1;</div><h4>权限保险丝矩阵</h4><p>L0-L4 五级权限，L4 需人工 + AI-3 双签确认</p></div>
+      <div class="feat reveal"><div class="emoji">&#x1F4C8;</div><h4>节点晋升流水线</h4><p>Stage 0-4 进化路径：模拟 &#x2192; 验证 &#x2192; 可信 &#x2192; 自主 &#x2192; 联邦</p></div>
+      <div class="feat reveal"><div class="emoji">&#x1F6D2;</div><h4>知识市场</h4><p>发布 Playbook 定价交易，PoO 追踪买家使用效果</p></div>
+      <div class="feat reveal"><div class="emoji">&#x1FA99;</div><h4>New.B 经济系统</h4><p>内置代币 + 挖矿奖励 + 比特币式减半计划</p></div>
+      <div class="feat reveal"><div class="emoji">&#x1F194;</div><h4>DID 节点身份</h4><p>Ed25519 密钥对，did:newclaw 格式，AES-256-GCM 加密</p></div>
+      <div class="feat reveal"><div class="emoji">&#x1F50C;</div><h4>LLM 供应商抽象</h4><p>支持 Ollama / OpenAI / Anthropic / DeepSeek 等 14+ 供应商</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section id="arch" style="background:rgba(139,92,246,.02)">
+  <div class="container">
+    <div class="section-label reveal">系统架构</div>
+    <h2 class="section-title reveal">六层架构设计 <span style="color:var(--muted);font-weight:400;font-size:.6em">Architecture</span></h2>
+    <p class="section-sub reveal">从 UI 到沙盒，每层职责清晰，松耦合高内聚</p>
+    <div class="arch-stack reveal">
+      <div class="arch-layer l1"><div class="label">&#x1F5A5; UI Layer / 用户界面层</div><div class="detail">React 19 + Zustand + Tailwind &mdash; TeamChat / Dashboard / Market / Ledgers / Oracle</div></div>
+      <div class="arch-connector">&#x25BC; useV6Store (Zustand persist)</div>
+      <div class="arch-layer l2"><div class="label">&#x1F517; Adapter Layer / 适配器层</div><div class="detail">fetchIdentity / fetchNewBBalance / fetchPooStats / syncBackend</div></div>
+      <div class="arch-connector">&#x25BC; IPC / HTTP + Bearer Token</div>
+      <div class="arch-layer l3"><div class="label">&#x2699; Host API / 宿主 API</div><div class="detail">Electron Main &mdash; Express Router: /api/trinity/* (40+ endpoints)</div></div>
+      <div class="arch-connector">&#x25BC;</div>
+      <div class="arch-layer l4"><div class="label">&#x1F9E0; Engine Modules / 引擎模块层</div><div class="detail">Constitution | Engine | Ledger | Oracle | FuseMatrix | Promotion | Market &mdash; 7 modules, 65+ functions</div></div>
+      <div class="arch-connector">&#x25BC;</div>
+      <div class="arch-layer l5"><div class="label">&#x1F4BE; Persistence / 持久化层</div><div class="detail">localStorage(S0) | File JSON/JSONL(S1) | On-chain hash(S2+)</div></div>
+      <div class="arch-connector">&#x25BC;</div>
+      <div class="arch-layer l6"><div class="label">&#x1F30D; External / 外部服务层</div><div class="detail">Docker Sandbox | LLM API (Ollama/OpenAI) | Blockchain | Swarm</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRINITY DEMO -->
+<section id="trinity">
+  <div class="container" style="text-align:center">
+    <div class="section-label reveal">Trinity 演示</div>
+    <h2 class="section-title reveal">三核辩论实时预览 <span style="color:var(--muted);font-weight:400;font-size:.6em">Live Debate</span></h2>
+    <p class="section-sub reveal" style="margin-left:auto;margin-right:auto">一个提案、一个审计、一个治理 &mdash; 看 AI 如何通过辩论做出更好的决策</p>
+    <div class="chat-demo reveal">
+      <div class="chat-header">
+        <div class="dot blue"></div><div class="dot amber"></div><div class="dot green"></div>
+        <span>Team Chat &mdash; Trinity Debate</span>
+      </div>
+      <div class="chat-msg"><div class="avatar a1">A1</div><div class="bubble"><div class="name blue">AI-1 Expander / 扩张者</div>建议将数据库查询重构为批量操作，预计 p95 延迟降低 40%。已生成执行方案。</div></div>
+      <div class="chat-msg"><div class="avatar a2">A2</div><div class="bubble"><div class="name amber">AI-2 Auditor / 审计者</div>方案存在风险：批量操作可能触发锁竞争。建议添加乐观锁 + 重试机制。证据等级：H2。</div></div>
+      <div class="chat-msg"><div class="avatar a3">A3</div><div class="bubble"><div class="name green">AI-3 Governor / 治理者</div>采纳审计建议。权限等级 L1 自动批准。已写入价值账本，PriorityScore: 92。</div></div>
+      <div class="chat-msg"><div class="avatar a1">A1</div><div class="bubble"><div class="name blue">AI-1 Expander</div>已按审计意见修订方案，添加重试逻辑。进入执行阶段。</div></div>
+      <div class="chat-msg"><div class="avatar a2">A2</div><div class="bubble"><div class="name amber">AI-2 Auditor</div>执行结果复核通过。延迟降低 43%，超出预期。PoO 验证: PASS。</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section id="compare" style="background:rgba(139,92,246,.02)">
+  <div class="container">
+    <div class="section-label reveal">框架对比</div>
+    <h2 class="section-title reveal">NewClaw vs 主流框架 <span style="color:var(--muted);font-weight:400;font-size:.6em">Comparison</span></h2>
+    <p class="section-sub reveal">不是提示词工程的进化，是 AI 治理的范式转移</p>
+    <div style="overflow-x:auto" class="reveal">
+      <table class="cmp-table">
+        <thead><tr><th>维度 Capability</th><th>NewClaw</th><th>LangChain</th><th>AutoGPT</th><th>CrewAI</th></tr></thead>
+        <tbody>
+          <tr><td>治理模型</td><td>三权分立 + 宪法</td><td><span class="cross">&#x2717;</span> 无</td><td><span class="cross">&#x2717;</span> 无</td><td>角色制，无制衡</td></tr>
+          <tr><td>审计追踪</td><td>6 账本 + 哈希链</td><td>非结构化日志</td><td>非结构化日志</td><td>基础日志</td></tr>
+          <tr><td>沙盒隔离</td><td>Docker + 降级回退</td><td><span class="cross">&#x2717;</span> 无</td><td>有限 Docker</td><td><span class="cross">&#x2717;</span> 无</td></tr>
+          <tr><td>权限系统</td><td>L0-L4 保险丝矩阵</td><td><span class="cross">&#x2717;</span> 无</td><td><span class="cross">&#x2717;</span> 无</td><td><span class="cross">&#x2717;</span> 无</td></tr>
+          <tr><td>结果验证</td><td>Oracle + PoO</td><td><span class="cross">&#x2717;</span> 无</td><td><span class="cross">&#x2717;</span> 无</td><td><span class="cross">&#x2717;</span> 无</td></tr>
+          <tr><td>经济系统</td><td>New.B + 知识市场</td><td><span class="cross">&#x2717;</span> 无</td><td><span class="cross">&#x2717;</span> 无</td><td><span class="cross">&#x2717;</span> 无</td></tr>
+          <tr><td>代理身份</td><td>DID + Ed25519</td><td><span class="cross">&#x2717;</span> 无</td><td><span class="cross">&#x2717;</span> 无</td><td><span class="cross">&#x2717;</span> 无</td></tr>
+          <tr><td>进化路径</td><td>5 阶段晋升</td><td><span class="cross">&#x2717;</span> 无</td><td><span class="cross">&#x2717;</span> 无</td><td><span class="cross">&#x2717;</span> 无</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- QUICK START -->
+<section id="start">
+  <div class="container">
+    <div class="section-label reveal">快速开始</div>
+    <h2 class="section-title reveal">5 分钟启动 <span style="color:var(--muted);font-weight:400;font-size:.6em">Quick Start</span></h2>
+    <p class="section-sub reveal">从 clone 到首个 Trinity 循环，不超过 5 分钟</p>
+    <div class="code-block reveal">
+<span class="comment"># 1. 克隆仓库 Clone the repo</span>
+<span class="cmd">git clone https://github.com/newclaw26/newclaw.git</span>
+
+<span class="comment"># 2. 进入目录 Enter directory</span>
+<span class="cmd">cd newclaw</span>
+
+<span class="comment"># 3. 安装依赖 Install dependencies</span>
+<span class="cmd">pnpm install</span>
+
+<span class="comment"># 4. 启动开发服务器 Start dev server</span>
+<span class="cmd">pnpm run dev</span>
+
+<span class="comment"># 5. 点击侧边栏 "V6 Trinity" -> 开始你的第一个任务</span>
+<span class="comment"># Click "V6 Trinity" in the sidebar -> Start your first task</span>
+    </div>
+    <p style="margin-top:16px;font-size:.8rem;color:var(--muted)" class="reveal">系统要求: Node.js 22+ / pnpm 9+ / macOS 12+ / Windows 10+ / Ubuntu 22.04+</p>
+  </div>
+</section>
+
+<!-- STATS -->
+<section style="background:rgba(139,92,246,.02)">
+  <div class="container">
+    <div class="stats-row">
+      <div class="stat-item reveal"><div class="num">7</div><div class="label">引擎模块<br>Engine Modules</div></div>
+      <div class="stat-item reveal"><div class="num">508</div><div class="label">测试通过<br>Tests Passing</div></div>
+      <div class="stat-item reveal"><div class="num">65+</div><div class="label">导出函数<br>Exported Functions</div></div>
+      <div class="stat-item reveal"><div class="num">3</div><div class="label">语言支持<br>Languages</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="reveal">加入 NewClaw 社区</h2>
+    <p class="reveal">Join the community building the future of AI governance</p>
+    <div class="cta-buttons reveal">
+      <a href="https://github.com/newclaw26/newclaw" target="_blank" class="btn">&#x2B50; GitHub</a>
+      <a href="https://discord.com/invite/84Kex3GGAh" target="_blank" class="btn-outline">&#x1F4AC; Discord</a>
+      <a href="mailto:public@valuecell.ai" class="btn-outline">&#x2709; 联系我们</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="links">
+      <a href="https://github.com/newclaw26/newclaw" target="_blank">GitHub</a>
+      <a href="https://discord.com/invite/84Kex3GGAh" target="_blank">Discord</a>
+      <a href="mailto:public@valuecell.ai">Email</a>
+      <a href="#">文档 Docs</a>
+      <a href="#">路线图 Roadmap</a>
+    </div>
+    <p class="copy">&copy; 2025 NewClaw &middot; ValueCell Team &middot; MIT License</p>
+  </div>
+</footer>
+
+<script>
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}})},{threshold:0.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
