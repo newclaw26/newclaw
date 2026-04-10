@@ -30,7 +30,7 @@
     "main": "dist-electron/main/index.js",
     "author": "NewClaw Team",
     "license": "MIT",
-    "private": true,
+    "private": false,
     "scripts": {
         "init": "pnpm install && pnpm run uv:download",
         "predev": "zx scripts/prepare-preinstalled-skills-dev.mjs",
