@@ -1,0 +1,120 @@
+{
+    "navigation": {
+        "teamChat": "Team Chat",
+        "dashboard": "Dashboard",
+        "ledgers": "Ledgers",
+        "oracle": "Oracle",
+        "permissions": "Permissions",
+        "node": "Node",
+        "identity": "Node Identity",
+        "economy": "Economy"
+    },
+    "trinity": {
+        "title": "Trinity Pipeline",
+        "roles": {
+            "expander": "AI-1 Expander",
+            "auditor": "AI-2 Auditor",
+            "governor": "AI-3 Governor"
+        },
+        "status": {
+            "idle": "Idle",
+            "thinking": "Thinking",
+            "executing": "Executing",
+            "blocked": "Blocked",
+            "error": "Error"
+        }
+    },
+    "tasks": {
+        "title": "Tasks",
+        "status": {
+            "draft": "Draft",
+            "pendingAudit": "Pending Audit",
+            "pendingApproval": "Pending Approval",
+            "approved": "Approved",
+            "executing": "Executing",
+            "completed": "Completed",
+            "failed": "Failed",
+            "blocked": "Blocked"
+        }
+    },
+    "ledgers": {
+        "title": "Ledgers",
+        "types": {
+            "evidence": "Evidence",
+            "value": "Value",
+            "debt": "Debt",
+            "temporal": "Temporal",
+            "caseLaw": "Case Law",
+            "localLedger": "Local Ledger"
+        }
+    },
+    "permissions": {
+        "title": "Permissions",
+        "levels": {
+            "l0": "L0 Auto-Execute",
+            "l1": "L1 Audit Required",
+            "l2": "L2 Dual Approval",
+            "l3": "L3 Human Sign-off",
+            "l4": "L4 Forbidden"
+        }
+    },
+    "node": {
+        "title": "Node",
+        "stages": {
+            "simulated": "Simulated Node",
+            "testnet": "Testnet Node",
+            "restrictedReal": "Restricted Real Node",
+            "certifiedMarket": "Certified Market Node",
+            "federation": "Federation Node"
+        }
+    },
+    "identity": {
+        "title": "Node Identity",
+        "nodeId": "Node ID",
+        "publicKey": "Public Key",
+        "address": "Blockchain Address",
+        "createdAt": "Created At",
+        "status": "Status",
+        "locked": "Locked",
+        "unlocked": "Unlocked",
+        "notCreated": "Node identity has not been created yet",
+        "waitingBackend": "Waiting for backend module connection",
+        "copyKey": "Copy Public Key",
+        "copied": "Copied"
+    },
+    "economy": {
+        "title": "Economy",
+        "newbBalance": "New.B Balance",
+        "simBalance": "Simulated Credit Balance",
+        "pooScore": "PoO Priority Score",
+        "halvingEpoch": "Halving Epoch",
+        "halvingProgress": "Halving Progress",
+        "totalMined": "Total Mined",
+        "verifiedOutcomes": "Verified Outcomes",
+        "rejectedOutcomes": "Rejected Outcomes",
+        "passRate": "Pass Rate",
+        "notConnected": "Economy module not connected",
+        "fallbackData": "Currently showing fallback data",
+        "reward": "Reward",
+        "spend": "Spend",
+        "receive": "Receive"
+    },
+    "actions": {
+        "createTask": "Create Task",
+        "runTrinityPipeline": "Run Trinity Pipeline",
+        "approve": "Approve",
+        "deny": "Deny"
+    },
+    "metrics": {
+        "tasks": "Tasks",
+        "completed": "Completed",
+        "outcomes": "Outcomes",
+        "settled": "Settled",
+        "evidence": "Evidence",
+        "balance": "Balance",
+        "compliance": "Compliance",
+        "reconciliation": "Reconciliation",
+        "stability": "Stability",
+        "promotionReadiness": "Promotion Readiness"
+    }
+}

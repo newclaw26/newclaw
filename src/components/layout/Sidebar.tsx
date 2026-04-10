@@ -193,6 +193,7 @@ export function Sidebar() {
   }
 
   const navItems = [
+    { to: '/trinity', icon: <span className="text-sm">🐉</span>, label: 'V6 Trinity', testId: 'sidebar-nav-trinity' },
     { to: '/overview', icon: <LayoutDashboard className="h-[18px] w-[18px]" strokeWidth={2} />, label: '概览', testId: 'sidebar-nav-overview' },
     { to: '/models', icon: <Cpu className="h-[18px] w-[18px]" strokeWidth={2} />, label: t('sidebar.models'), testId: 'sidebar-nav-models' },
     { to: '/agents', icon: <Bot className="h-[18px] w-[18px]" strokeWidth={2} />, label: t('sidebar.agents'), testId: 'sidebar-nav-agents' },

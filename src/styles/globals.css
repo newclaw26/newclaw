@@ -399,3 +399,131 @@
   opacity: 0.5;
   pointer-events: none;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   Team Chat UI — Animations & Utilities
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 1. Radar Sweep — AI thinking indicator ── */
+
+@keyframes radar-sweep {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-radar {
+  animation: radar-sweep 2s linear infinite;
+}
+
+/* Radar container with conic gradient */
+.radar-indicator {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.radar-indicator::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  animation: radar-sweep 2s linear infinite;
+}
+
+.radar-indicator--blue::before {
+  background: conic-gradient(from 0deg, transparent 0%, transparent 70%, rgba(59, 130, 246, 0.6) 85%, rgba(59, 130, 246, 0) 100%);
+}
+
+.radar-indicator--amber::before {
+  background: conic-gradient(from 0deg, transparent 0%, transparent 70%, rgba(245, 158, 11, 0.6) 85%, rgba(245, 158, 11, 0) 100%);
+}
+
+.radar-indicator--emerald::before {
+  background: conic-gradient(from 0deg, transparent 0%, transparent 70%, rgba(16, 185, 129, 0.6) 85%, rgba(16, 185, 129, 0) 100%);
+}
+
+/* Center dot */
+.radar-indicator::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* Radar ring */
+.radar-ring {
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  opacity: 0.2;
+}
+
+/* ── 2. Message Enter — smooth slide-in for new chat messages ── */
+
+@keyframes message-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-message-enter {
+  animation: message-enter 0.3s ease-out forwards;
+}
+
+/* ── 3. Typing Dots — three bouncing dots for "typing" state ── */
+
+@keyframes typing-bounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-4px); }
+}
+
+.typing-dot {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  margin: 0 1px;
+}
+
+.typing-dot:nth-child(1) { animation: typing-bounce 1.2s ease-in-out infinite; }
+.typing-dot:nth-child(2) { animation: typing-bounce 1.2s ease-in-out 0.2s infinite; }
+.typing-dot:nth-child(3) { animation: typing-bounce 1.2s ease-in-out 0.4s infinite; }
+
+/* ── 4. Chat-specific utility classes ── */
+
+/* Chat bubble subtle hover */
+.chat-bubble-hover {
+  transition: background-color 0.15s ease;
+}
+.chat-bubble-hover:hover {
+  filter: brightness(1.1);
+}
+
+/* Scroll anchor for auto-scroll */
+.scroll-anchor {
+  overflow-anchor: auto;
+}
+
+/* Token info badge */
+.token-badge {
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.4);
+}

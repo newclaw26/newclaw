@@ -1,0 +1,120 @@
+{
+    "navigation": {
+        "teamChat": "チームチャット",
+        "dashboard": "ダッシュボード",
+        "ledgers": "台帳",
+        "oracle": "オラクル",
+        "permissions": "権限",
+        "node": "ノード",
+        "identity": "ノードID",
+        "economy": "経済システム"
+    },
+    "trinity": {
+        "title": "トリニティパイプライン",
+        "roles": {
+            "expander": "AI-1 拡張者",
+            "auditor": "AI-2 監査者",
+            "governor": "AI-3 統治者"
+        },
+        "status": {
+            "idle": "待機",
+            "thinking": "思考中",
+            "executing": "実行中",
+            "blocked": "ブロック",
+            "error": "エラー"
+        }
+    },
+    "tasks": {
+        "title": "タスク",
+        "status": {
+            "draft": "下書き",
+            "pendingAudit": "監査待ち",
+            "pendingApproval": "承認待ち",
+            "approved": "承認済み",
+            "executing": "実行中",
+            "completed": "完了",
+            "failed": "失敗",
+            "blocked": "ブロック"
+        }
+    },
+    "ledgers": {
+        "title": "台帳",
+        "types": {
+            "evidence": "証拠",
+            "value": "価値",
+            "debt": "債務",
+            "temporal": "時効",
+            "caseLaw": "判例",
+            "localLedger": "ローカル台帳"
+        }
+    },
+    "permissions": {
+        "title": "権限",
+        "levels": {
+            "l0": "L0 自動実行",
+            "l1": "L1 監査必要",
+            "l2": "L2 二重承認",
+            "l3": "L3 人間の署名",
+            "l4": "L4 禁止"
+        }
+    },
+    "node": {
+        "title": "ノード",
+        "stages": {
+            "simulated": "シミュレーションノード",
+            "testnet": "テストネットノード",
+            "restrictedReal": "制限付き実ノード",
+            "certifiedMarket": "認定マーケットノード",
+            "federation": "フェデレーションノード"
+        }
+    },
+    "identity": {
+        "title": "ノードID",
+        "nodeId": "ノード ID",
+        "publicKey": "公開鍵",
+        "address": "ブロックチェーンアドレス",
+        "createdAt": "作成日時",
+        "status": "ステータス",
+        "locked": "ロック済み",
+        "unlocked": "未ロック",
+        "notCreated": "ノードIDがまだ作成されていません",
+        "waitingBackend": "バックエンドモジュールの接続を待機中",
+        "copyKey": "公開鍵をコピー",
+        "copied": "コピー済み"
+    },
+    "economy": {
+        "title": "経済システム",
+        "newbBalance": "New.B 残高",
+        "simBalance": "シミュレーションクレジット残高",
+        "pooScore": "PoO 優先度スコア",
+        "halvingEpoch": "半減期エポック",
+        "halvingProgress": "半減期進捗",
+        "totalMined": "累計マイニング",
+        "verifiedOutcomes": "検証済み結果",
+        "rejectedOutcomes": "拒否済み結果",
+        "passRate": "合格率",
+        "notConnected": "経済モジュール未接続",
+        "fallbackData": "現在フォールバックデータを表示中",
+        "reward": "報酬",
+        "spend": "支出",
+        "receive": "収入"
+    },
+    "actions": {
+        "createTask": "タスク作成",
+        "runTrinityPipeline": "トリニティパイプライン実行",
+        "approve": "承認",
+        "deny": "拒否"
+    },
+    "metrics": {
+        "tasks": "タスク",
+        "completed": "完了",
+        "outcomes": "結果",
+        "settled": "決済済み",
+        "evidence": "証拠",
+        "balance": "残高",
+        "compliance": "コンプライアンス",
+        "reconciliation": "照合",
+        "stability": "安定性",
+        "promotionReadiness": "昇格準備度"
+    }
+}

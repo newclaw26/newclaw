@@ -22,6 +22,7 @@ import { Instances } from './pages/Instances';
 import { Sessions } from './pages/Sessions';
 import { Usage } from './pages/Usage';
 import { Documents } from './pages/Documents';
+import Trinity from './pages/Trinity';
 import { useSettingsStore } from './stores/settings';
 import { useGatewayStore } from './stores/gateway';
 import { useProviderStore } from './stores/providers';
@@ -141,7 +142,8 @@ function App() {
       }
     };
 
-    const unsubscribe = window.electron.ipcRenderer.on('navigate', handleNavigate);
+    // Guard for browser dev mode where window.electron is undefined
+    const unsubscribe = window.electron?.ipcRenderer?.on('navigate', handleNavigate);
 
     return () => {
       if (typeof unsubscribe === 'function') {
@@ -189,6 +191,7 @@ function App() {
             <Route path="/sessions" element={<Sessions />} />
             <Route path="/usage" element={<Usage />} />
             <Route path="/documents" element={<Documents />} />
+            <Route path="/trinity" element={<Trinity />} />
             <Route path="/settings/*" element={<Settings />} />
           </Route>
         </Routes>

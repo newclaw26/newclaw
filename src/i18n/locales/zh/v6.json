@@ -1,0 +1,135 @@
+{
+    "navigation": {
+        "teamChat": "团队群聊",
+        "dashboard": "仪表盘",
+        "ledgers": "账本",
+        "oracle": "预言机",
+        "permissions": "权限",
+        "node": "节点",
+        "identity": "节点身份",
+        "economy": "经济系统"
+    },
+    "trinity": {
+        "title": "三核流水线",
+        "roles": {
+            "expander": "AI-1 扩张者",
+            "auditor": "AI-2 审计者",
+            "governor": "AI-3 治理者"
+        },
+        "status": {
+            "idle": "空闲",
+            "thinking": "思考中",
+            "executing": "执行中",
+            "blocked": "阻塞",
+            "error": "错误"
+        }
+    },
+    "tasks": {
+        "title": "任务",
+        "status": {
+            "draft": "草案",
+            "pendingAudit": "待审计",
+            "pendingApproval": "待批准",
+            "approved": "已批准",
+            "executing": "执行中",
+            "completed": "已完成",
+            "failed": "失败",
+            "blocked": "阻塞"
+        }
+    },
+    "ledgers": {
+        "title": "账本",
+        "types": {
+            "evidence": "证据",
+            "value": "价值",
+            "debt": "债务",
+            "temporal": "时效",
+            "caseLaw": "判例",
+            "localLedger": "本地账本"
+        }
+    },
+    "permissions": {
+        "title": "权限",
+        "levels": {
+            "l0": "L0 自动执行",
+            "l1": "L1 需审计",
+            "l2": "L2 双重批准",
+            "l3": "L3 人类签批",
+            "l4": "L4 永久禁止"
+        }
+    },
+    "node": {
+        "title": "节点",
+        "stages": {
+            "simulated": "模拟节点",
+            "testnet": "测试网节点",
+            "restrictedReal": "受限真实节点",
+            "certifiedMarket": "认证市场节点",
+            "federation": "联邦节点"
+        }
+    },
+    "identity": {
+        "title": "节点身份",
+        "nodeId": "节点 ID",
+        "publicKey": "公钥",
+        "address": "区块链地址",
+        "createdAt": "创建时间",
+        "status": "状态",
+        "lockStatus": "锁定状态",
+        "locked": "已锁定",
+        "unlocked": "未锁定",
+        "lockedDesc": "身份已锁定 — 密钥对已安全存储，无法修改",
+        "unlockedDesc": "身份未锁定 — 密钥对尚未完成安全绑定",
+        "notCreated": "节点身份尚未创建",
+        "waitingBackend": "等待后端模块接入",
+        "copyKey": "复制公钥",
+        "copy": "复制",
+        "copied": "已复制"
+    },
+    "economy": {
+        "title": "经济系统",
+        "newbBalance": "New.B 余额",
+        "newBBalance": "New.B 余额",
+        "simBalance": "模拟积分余额",
+        "primaryToken": "主要通证",
+        "simulatedCredit": "模拟信用",
+        "pooScore": "PoO 优先级评分",
+        "pooPriorityScore": "PoO 优先级分数",
+        "lowPriority": "低优先级",
+        "highPriority": "高优先级",
+        "halvingEpoch": "减半周期",
+        "halvingProgress": "减半进度",
+        "epochStart": "纪元开始",
+        "nextHalving": "下一次减半",
+        "totalMined": "累计挖矿",
+        "verifiedOutcomes": "已验证结果",
+        "rejectedOutcomes": "已拒绝结果",
+        "outcomeStats": "结果验证统计",
+        "verified": "已验证",
+        "rejected": "已拒绝",
+        "passRate": "通过率",
+        "notConnected": "经济模块尚未接入",
+        "fallbackData": "当前展示回退数据",
+        "reward": "奖励",
+        "spend": "消费",
+        "receive": "收入"
+    },
+    "actions": {
+        "createTask": "创建任务",
+        "runTrinityPipeline": "运行三核流水线",
+        "approve": "批准",
+        "deny": "拒绝"
+    },
+    "metrics": {
+        "tasks": "任务",
+        "completed": "已完成",
+        "outcomes": "结果",
+        "settled": "已结算",
+        "evidence": "证据",
+        "balance": "余额",
+        "compliance": "合规",
+        "reconciliation": "对账",
+        "stability": "稳定性",
+        "promotionReadiness": "晋升就绪度"
+    }
+}
