@@ -103,3 +103,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **All 31 Sprint 1 defects resolved** -- Complete resolution of all defects identified during Sprint 1 QA cycle.
   **全部 31 个 Sprint 1 缺陷修复** -- Sprint 1 QA 周期中识别的所有缺陷全部修复。
+
+---
+
+## 致谢 / Credits & Attribution
+
+NewClaw V7.0 is built with gratitude upon these open-source projects:
+
+- **[OpenClaw](https://github.com/openclaw/openclaw)** — AI gateway engine (MIT License)
+- **[Electron](https://www.electronjs.org/)** — Cross-platform desktop framework (MIT License)
+- **[React](https://react.dev/)** — UI framework (MIT License)
+- **[Zustand](https://github.com/pmndrs/zustand)** — State management (MIT License)
+- **[Vite](https://vitejs.dev/)** — Build tool (MIT License)
+- **[Tailwind CSS](https://tailwindcss.com/)** — Utility-first CSS (MIT License)
+
+Development tools:
+- **Claude Code** by [Anthropic](https://anthropic.com) — AI coding assistant
+- **Claude Opus 4.6** — Co-authored commits
+
+NewClaw V7.0 Trinity governance engine is original work by the NewClaw team.
+All third-party components retain their original licenses.
