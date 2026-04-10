@@ -1,0 +1,29 @@
+title: "展示你的 Trinity 节点 / Show Your Trinity Node"
+labels: ["show-and-tell"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        分享你用 NewClaw 做了什么！我们很期待看到社区的创意。
+        Share what you've built with NewClaw! We'd love to see the community's creativity.
+  - type: textarea
+    attributes:
+      label: 你用 Trinity 做了什么？/ What did you build with Trinity?
+      description: 描述你的使用场景和成果 / Describe your use case and results
+      placeholder: 描述你的使用场景和成果 / Describe your use case and results
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 截图或 GIF / Screenshots or GIFs
+      description: 展示你的 Trinity 仪表盘或运行效果 / Show your Trinity dashboard or results
+      placeholder: 拖拽图片到这里 / Drag images here
+  - type: textarea
+    attributes:
+      label: 技术细节 / Technical Details
+      description: 使用了哪些节点、配置或插件？/ Which nodes, configs, or plugins did you use?
+      placeholder: 例如：使用了 3 个 Trinity 节点 + Redis 缓存 / e.g. 3 Trinity nodes + Redis cache
+  - type: textarea
+    attributes:
+      label: 经验分享 / Lessons Learned
+      description: 遇到过什么问题？有什么建议？/ Any challenges or tips for others?
