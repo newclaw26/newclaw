@@ -371,7 +371,7 @@ export interface V6SystemState {
 // UI State Types
 // ---------------------------------------------------------------------------
 
-export type V6View = 'team-chat' | 'dashboard' | 'market' | 'ledgers' | 'oracle' | 'permissions' | 'node-status' | 'task-detail' | 'identity' | 'economy'
+export type V6View = 'team-chat' | 'dashboard' | 'market' | 'ledgers' | 'oracle' | 'permissions' | 'node-status' | 'task-detail' | 'identity' | 'economy' | 'governance'
 
 export interface V6UIState {
   activeView: V6View

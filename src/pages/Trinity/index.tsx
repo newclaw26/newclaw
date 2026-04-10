@@ -17,6 +17,7 @@ import { PromotionPipeline } from '@/components/v6/PromotionPipeline'
 import { IdentityCard } from '@/components/v6/IdentityCard'
 import { EconomyDashboard } from '@/components/v6/EconomyDashboard'
 import { TeamChatView } from '@/components/v6/TeamChatView'
+import { GovernanceScoreCard } from '@/components/v6/GovernanceScoreCard'
 import GenesisWizard from '@/components/onboarding/GenesisWizard'
 import { createDefaultRegistry } from '@/lib/v6/llm-provider'
 import { runFullTrinityPipeline } from '@/lib/v6/trinity-orchestrator'
@@ -32,6 +33,7 @@ const NAV_ITEMS: { view: V6View; label: string; icon: string }[] = [
   { view: 'node-status', label: '节点晋升', icon: '🌐' },
   { view: 'identity', label: '节点身份', icon: '🔑' },
   { view: 'economy', label: '经济系统', icon: '💰' },
+  { view: 'governance', label: '治理评分', icon: '📊' },
 ]
 
 const PHASE_LABELS: Record<string, string> = {
@@ -178,6 +180,7 @@ function TrinityDashboard() {
         {store.ui.activeView === 'node-status' && <NodeStatusView store={store} />}
         {store.ui.activeView === 'identity' && <IdentityView />}
         {store.ui.activeView === 'economy' && <EconomyView store={store} />}
+        {store.ui.activeView === 'governance' && <GovernanceView />}
       </main>
     </div>
   )
@@ -567,6 +570,18 @@ const MarketView = memo(function MarketView({ store }: { store: V6Store }) {
           </div>
         </div>
       )}
+    </div>
+  )
+})
+
+// ---------------------------------------------------------------------------
+// 治理评分视图
+// ---------------------------------------------------------------------------
+
+const GovernanceView = memo(function GovernanceView() {
+  return (
+    <div className="max-w-4xl mx-auto space-y-6">
+      <GovernanceScoreCard />
     </div>
   )
 })
