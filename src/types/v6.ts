@@ -462,3 +462,56 @@ export interface SandboxResult {
 // ---------------------------------------------------------------------------
 
 export type BackendConnectionStatus = 'disconnected' | 'connecting' | 'connected' | 'error'
+
+// ---------------------------------------------------------------------------
+// Governance Scoring & Role Rotation (CEO+Audit mechanism)
+// ---------------------------------------------------------------------------
+
+/** Short identifiers for the three Trinity agents in scoring context. */
+export type GovernanceActorId = 'ai1' | 'ai2' | 'ai3'
+
+/**
+ * Six-dimension scoring rubric applied by one agent to another after each
+ * governance round.  Total always equals the sum of all six dimension scores.
+ *
+ * Dimension ceilings:
+ *   taskCompletion    0-25   (did the work get done?)
+ *   deliveryQuality   0-25   (how good was it?)
+ *   planValue         0-15   (strategic value of the plan)
+ *   efficiency        0-15   (resource usage / time)
+ *   strategicJudgment 0-10   (trade-off quality)
+ *   riskControl       0-10   (risk identification & mitigation)
+ */
+export interface GovernanceScore {
+  round: number
+  timestamp: string
+  scorer: GovernanceActorId
+  target: GovernanceActorId
+  dimensions: GovernanceDimensions
+  total: number               // 0-100 (sum of dimensions)
+  notes: string
+}
+
+export interface GovernanceDimensions {
+  taskCompletion: number      // 0-25
+  deliveryQuality: number     // 0-25
+  planValue: number           // 0-15
+  efficiency: number          // 0-15
+  strategicJudgment: number   // 0-10
+  riskControl: number         // 0-10
+}
+
+/**
+ * Tracks the current CEO/auditor assignment and rotation schedule.
+ *
+ * Role rotation is merit-based: high-scoring CEOs earn longer terms.
+ * When a term expires the auditor becomes the new CEO and a fresh
+ * auditor is selected from the remaining agent.
+ */
+export interface RotationState {
+  currentCEO: GovernanceActorId
+  currentAuditor: GovernanceActorId
+  roundsInCurrentTerm: number
+  maxRoundsInTerm: number     // calculated from recent scores
+  scoreHistory: GovernanceScore[]
+}
